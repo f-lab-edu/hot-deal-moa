@@ -1,6 +1,6 @@
 # 🛍 hot-deal-moa
 * 온라인 E-commerce 서비스를 설계하고 서버를 구축
-* 프로젝트 관련 정보 및 기술적인 문제에 대한 해결 방법은 [Wiki](https://github.com/f-lab-edu/hot-deal-moa/wiki)에서 확인할 수 있습니다.
+* 프로젝트 관련 정보 및 기술적인 문제에 대한 해결 방법은 [Wiki](https://github.com/f-lab-edu/hot-deal-moa/wiki)에서 확인
 
 # 프로젝트 정보
 
@@ -16,3 +16,4 @@
 
 ## 🔹 프로젝트 환경 정보
 * Java 17
+* Spring Boot 3.0.0
