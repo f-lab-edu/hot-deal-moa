@@ -33,7 +33,7 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: jdbc:mysql://10.41.9.120:3306/hotdealmoa?useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://118.67.129.227:3306/hotdealmoa?useSSL=false&serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: gktelfahdk
