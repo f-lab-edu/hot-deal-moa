@@ -10,4 +10,5 @@ class HotDealMoaApplicationTests {
 	void contextLoads() {
 	}
 
+	//test
 }
