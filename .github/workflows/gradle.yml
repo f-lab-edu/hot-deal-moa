@@ -2,7 +2,9 @@ name: Java CI with Gradle
 
 on:
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      - main
+      - develop
 
 permissions:
   contents: read
@@ -19,7 +21,17 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'temurin'
+
+      - name: Gradle 캐싱
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Gradle 권한 부여
         run: chmod +x gradlew
@@ -29,6 +41,6 @@ jobs:
         run: ./gradlew build -x test
         shell: bash
 
-      - name: local 환경에서 Gradle test 수행
-        run: SPRING_PROFILES_ACTIVE=[local] ./gradlew clean test
+      - name: dev 환경에서 Gradle test 수행
+        run: ./gradlew clean test -Pprofile=dev
         shell: bash
