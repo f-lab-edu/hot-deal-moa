@@ -8,7 +8,6 @@ class HotDealMoaApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
-	//test
+	}
 }
