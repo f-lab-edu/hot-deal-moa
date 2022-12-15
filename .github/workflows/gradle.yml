@@ -23,7 +23,7 @@ jobs:
         distribution: 'adopt'
         
     - name: Gradle build를 수행합니다.
-      run : ./gradlew clean build -Pprofile=prod
+      run : ./gradlew clean build
   
     - name: 테스트 실패 시, 실패한 코드 라인에 Check 코멘트를 등록합니다.
       uses: mikepenz/action-junit-report@v3

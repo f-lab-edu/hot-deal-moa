@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  flyway:
+    enabled: false
 
 --- # dev
 
@@ -18,6 +20,11 @@ spring:
   config:
     activate:
       on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotdealmoa
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
 
 --- # prod
 
@@ -25,3 +32,8 @@ spring:
   config:
     activate:
       on-profile: prod
+  datasource:
+    url: jdbc:mysql://118.67.129.227:3306/hotdealmoa?useSSL=false&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
