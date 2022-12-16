@@ -42,3 +42,13 @@ jobs:
           port: ${{ secrets.NCP_SERVERS_PORT }}
           source: "./build/libs/*.jar, ./deploy.sh"
           target: "/hotdealmoa"
+
+      - name: 스크립트 실행
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.NCP_SERVERS }}
+          username: ${{ secrets.NCP_SERVER_USER }}
+          password: ${{ secrets.NCP_SERVER_PASSWORD }}
+          port: ${{ secrets.NCP_SERVERS_PORT }}
+          script_stop: true
+          script: chmod +x /hotdealmoa/deploy.sh && sh /hotdealmoa/deploy.sh
