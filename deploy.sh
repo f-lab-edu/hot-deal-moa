@@ -15,5 +15,5 @@ cd /hotdealmoa/build/libs/
 JAR_NAME=$(ls | grep 'SNAPSHOT.jar')
 echo "> JAR Name: $JAR_NAME"
 
-nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME > /dev/null 2>&1 &
+nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME -Djasypt.encryptor.password=$JASYPT_PASSWORD >/dev/null 2>&1 &
 sleep 2
