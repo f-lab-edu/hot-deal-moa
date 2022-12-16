@@ -40,5 +40,5 @@ jobs:
           username: ${{ secrets.NCP_SERVER_USER }}
           password: ${{ secrets.NCP_SERVER_PASSWORD }}
           port: ${{ secrets.NCP_SERVERS_PORT }}
-          source: "./build/libs/*.jar","./deploy.sh"
+          source: "./build/libs/*.jar, ./deploy.sh"
           target: "/hotdealmoa"
