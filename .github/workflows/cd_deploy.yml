@@ -39,5 +39,6 @@ jobs:
           host: ${{ secrets.NCP_SERVERS }}
           username: ${{ secrets.NCP_SERVER_USER }}
           password: ${{ secrets.NCP_SERVER_PASSWORD }}
+          port: ${{ secrets.NCP_SERVERS_PORT }}
           source: "./build/libs/*.jar"
           target: "/hotdealmoa"
