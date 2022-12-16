@@ -38,7 +38,7 @@ jobs:
         shell: bash
 
       - name: Gradle build 수행
-        run: ./gradlew build -x test -Pjasypt.encryptor.password="gktelfahdk"
+        run: ./gradlew build -x test -Pjasypt.encryptor.password=${{ secret.JASYPT_PASSWORD }}
         shell: bash
 
       - name: dev 환경에서 Gradle test 수행
