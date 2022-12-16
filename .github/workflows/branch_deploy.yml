@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Gradle build 수행
-        run: ./gradlew build -x test
+        run: ./gradlew build -x test -Pjasypt.encryptor.password=${{ secrets.JASYPT_PASSWORD }}
         shell: bash
 
       - name: 서버로 Jar파일 복사
