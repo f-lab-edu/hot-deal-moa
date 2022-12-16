@@ -14,6 +14,10 @@ spring:
   flyway:
     enabled: false
 
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
 --- # dev
 
 spring:
@@ -21,10 +25,10 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/hotdealmoa
+    url: ENC(lHbsII87f/GzFRwsdlZQoVYmIOYu0BEpey6OZ5uaovFkSnFk+hSc9sRyGHTnBE9l)
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
+    username: ENC(1Oyv5OFKC8XKEK8usLmfHQ==)
+    password: ENC(Cpt7BnQxchQIZFf95Wy3Bw==)
 
 --- # prod
 
@@ -33,7 +37,7 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: jdbc:mysql://118.67.129.227:3306/hotdealmoa?useSSL=false&serverTimezone=Asia/Seoul
+    url: ENC(yeTBHVnIbqE94/rebR0nOfCcIk+Adiw/35vU9KeSFNShsRcYJ4ofLi7TOmMDOAgLwO1oFX59UtlQziefCAsB9qZ0LT8Fd8e6t32crAPnu4gGyDLxb1zkhiaCHuYawhVV)
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
+    username: ENC(1Oyv5OFKC8XKEK8usLmfHQ==)
+    password: ENC(jSslXA5VwV5JSDGwwOh9QNd5bQcdweKy)
