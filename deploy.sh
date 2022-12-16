@@ -12,7 +12,7 @@ fi
 echo "> new app deploy"
 
 cd /hotdealmoa/build/libs/
-JAR_NAME=$(ls | grep 'gist-competition' | tail -n 1)
+JAR_NAME=$(ls | grep 'hot-deal-moa' | tail -n 1)
 echo "> JAR Name: $JAR_NAME"
 
 nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME > /dev/null 2>&1 &
