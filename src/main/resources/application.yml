@@ -1,8 +1,6 @@
 # common
 server:
   port: 80
-  servlet:
-    context-path: /api
 
 spring:
   jpa:
@@ -13,6 +11,9 @@ spring:
         format_sql: true
   flyway:
     enabled: false
+  web:
+    resources:
+      static-locations: classpath:/static/docs
 
 jasypt:
   encryptor:
