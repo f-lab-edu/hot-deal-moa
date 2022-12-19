@@ -1,7 +1,3 @@
-ifndef::snippets[]
-:snippets: ../../build/generated-snippets
-endif::[]
-
 = Hot-deal-moa API guide
 :doctype: book
 :icons: font
