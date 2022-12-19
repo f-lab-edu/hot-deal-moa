@@ -21,9 +21,8 @@ jobs:
         run: chmod +x gradlew
         shell: bash
 
-
-      - name: Gradle build 수행
-        run: ./gradlew build -x test
+      - name: Gradle test & build 수행
+        run: ./gradlew clean build -Pprofile=dev -Pjasypt.encryptor.password=${{ secrets.JASYPT_PASSWORD }}
         shell: bash
 
       - name: 서버로 Jar파일 복사
