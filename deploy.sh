@@ -11,9 +11,7 @@ else
 fi
 echo "> new app deploy"
 
-cd /hotdealmoa/build/libs/
-JAR_NAME=$(ls | grep 'gist-competition' | tail -n 1)
-echo "> JAR Name: $JAR_NAME"
+cd /hotdealmoa/
 
-nohup java -jar -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul $JAR_NAME 1>nohup/stdout.txt 2>nohup/stderr.txt &
+nohup java -jar -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar 1>nohup/stdout.txt 2>nohup/stderr.txt &
 sleep 2

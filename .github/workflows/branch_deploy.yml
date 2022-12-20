@@ -24,6 +24,10 @@ jobs:
         run: ./gradlew clean build -Pprofile=dev -Pjasypt.encryptor.password=${{ secrets.JASYPT_PASSWORD }}
         shell: bash
 
+      - name: Jar파일 위치 이동
+        run: mv ./build/libs/*.SNAPSHOT.jar ./hot-deal-moa.jar
+        shell: bash
+
       - name: 서버로 Jar파일 복사
         uses: appleboy/scp-action@master
         with:
@@ -31,7 +35,7 @@ jobs:
           username: ${{ secrets.NCP_SERVER_USER }}
           password: ${{ secrets.NCP_SERVER_PASSWORD }}
           port: ${{ secrets.NCP_SERVERS_PORT }}
-          source: "./build/libs/*.jar, ./deploy.sh"
+          source: "./hot-deal-moa.jar, ./deploy.sh"
           target: "/hotdealmoa"
 
       - name: 스크립트 실행
