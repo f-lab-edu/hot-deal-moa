@@ -1,4 +1,4 @@
-package com.example.hotdealmoa.common.config;
+package com.example.hotdealmoa.global.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
