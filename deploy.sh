@@ -13,5 +13,5 @@ echo "> new app deploy"
 
 cd /hotdealmoa/
 
-nohup java -jar -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar  1>/hotdealmoa/application.log 2>&1 &
+nohup java -jar -Djasypt.encryptor.password=$JASYPT_PASSWORD -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar  1>/hotdealmoa/application.log 2>&1 &
 sleep 2
