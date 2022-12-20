@@ -2,7 +2,7 @@
 echo "> now ing app pid find!"
 CURRENT_PID=$(pgrep -f HotDealMoaApp)
 echo "$CURRENT_PID"
-if [ -z $CURRENT_PID ]; then
+if [[ -z $CURRENT_PID ]]; then
   echo "> no ing app."
 else
   echo "> kill -9 $CURRENT_PID"
