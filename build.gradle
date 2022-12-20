@@ -72,7 +72,3 @@ tasks.register('copyDocument') {
         into file("src/main/resources/static/docs")
     }
 }
-
-build {
-    dependsOn tasks.named('copyDocument')
-}

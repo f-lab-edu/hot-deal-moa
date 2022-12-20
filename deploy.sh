@@ -11,9 +11,7 @@ else
 fi
 echo "> new app deploy"
 
-cd /hotdealmoa/build/libs/
-JAR_NAME=$(ls | grep 'SNAPSHOT.jar')
-echo "> JAR Name: $JAR_NAME"
+cd /hotdealmoa/
 
-nohup java -jar $JASYPT_PASSWORD -Duser.timezone=Asia/Seoul $JAR_NAME 1>/hotdealmoa/application.log 2>&1 &
+nohup java -jar -Djasypt.encryptor.password=$JASYPT_PASSWORD -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar  1>/hotdealmoa/application.log 2>&1 &
 sleep 2
