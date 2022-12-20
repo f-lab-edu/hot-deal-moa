@@ -25,7 +25,7 @@ jobs:
         shell: bash
 
       - name: Jar파일 위치 이동
-        run: mv ./build/libs/*.SNAPSHOT.jar ./hot-deal-moa.jar
+        run: mv ./build/libs/*SNAPSHOT.jar ./hot-deal-moa.jar
         shell: bash
 
       - name: 서버로 Jar파일 복사
