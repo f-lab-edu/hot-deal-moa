@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "> now ing app pid find!"
-CURRENT_PID=$(pgrep -f HotDealMoaApp)
+CURRENT_PID=$(pgrep -f hot-deal-moa)
 echo "$CURRENT_PID"
-if [[ -z $CURRENT_PID ]]; then
+if [ -z $CURRENT_PID ]; then
   echo "> no ing app."
 else
   echo "> kill -9 $CURRENT_PID"
@@ -11,7 +11,9 @@ else
 fi
 echo "> new app deploy"
 
-cd /hotdealmoa
+cd /hotdealmoa/build/libs/
+JAR_NAME=$(ls | grep 'gist-competition' | tail -n 1)
+echo "> JAR Name: $JAR_NAME"
 
-nohup java -jar $JASYPT_PASSWORD -Duser.timezone=Asia/Seoul HotDealMoaApp.jar 1>/hotdealmoa/application.log 2>&1 &
+nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME 1>nohup/stdout.txt 2>nohup/stderr.txt &
 sleep 2
