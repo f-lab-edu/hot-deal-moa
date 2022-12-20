@@ -1,4 +1,4 @@
-package com.example.hotdealmoa.common.config;
+package com.example.hotdealmoa.global.config;
 
 import static org.assertj.core.api.Assertions.*;
 
