@@ -44,5 +44,5 @@ jobs:
           port: ${{ secrets.NCP_SERVERS_PORT }}
           script_stop: true
           script: |
-            mv /hotdealmoa/*.jar /hotdealmoa/HotDealMoaApp.jar
+            mv /hotdealmoa/*SNAPSHOT.jar /hotdealmoa/HotDealMoaApp.jar
             chmod +x /hotdealmoa/deploy.sh && sh /hotdealmoa/deploy.sh
