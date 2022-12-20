@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "> now ing app pid find!"
-CURRENT_PID=$(pgrep -f hot-deal-moa)
+CURRENT_PID=$(pgrep -f HotDealMoaApp)
 echo "$CURRENT_PID"
 if [ -z $CURRENT_PID ]; then
   echo "> no ing app."
@@ -11,9 +11,7 @@ else
 fi
 echo "> new app deploy"
 
-cd /hotdealmoa/build/libs/
-JAR_NAME=$(ls | grep 'SNAPSHOT.jar')
-echo "> JAR Name: $JAR_NAME"
+cd /hotdealmoa
 
-nohup java -jar $JASYPT_PASSWORD -Duser.timezone=Asia/Seoul $JAR_NAME 1>/hotdealmoa/application.log 2>&1 &
+nohup java -jar $JASYPT_PASSWORD -Duser.timezone=Asia/Seoul HotDealMoaApp.jar 1>/hotdealmoa/application.log 2>&1 &
 sleep 2
