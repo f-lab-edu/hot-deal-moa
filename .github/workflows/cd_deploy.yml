@@ -37,7 +37,7 @@ jobs:
           port: ${{ secrets.NCP_SERVERS_PORT }}
           source: "./build/libs/*SNAPSHOT.jar, ./deploy.sh"
           target: "/hotdealmoa"
-          strip_components: 1
+          strip_components: 2
 
       - name: 스크립트 실행
         uses: appleboy/ssh-action@master
