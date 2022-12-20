@@ -13,5 +13,5 @@ echo "> new app deploy"
 
 cd /hotdealmoa/
 
-nohup java -jar -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar 1>nohup/stdout.txt 2>nohup/stderr.txt &
+nohup java -jar -Dspring.profiles.active=prod -Duser.timezone=Asia/Seoul hot-deal-moa.jar  1>/hotdealmoa/application.log 2>&1 &
 sleep 2
