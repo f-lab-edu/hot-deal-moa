@@ -53,6 +53,7 @@ public class TestController {
 			.body(map);
 	}
 
+	// 에러 restapi
 	@GetMapping("/success")
 	public ResponseResult<?> testSuccess() {
 		List<TestMember> list = new ArrayList<>();
@@ -75,7 +76,6 @@ public class TestController {
 	}
 
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	@Getter
 	public static class TestMember {
 		private String name;
 		private Integer age;
