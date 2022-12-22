@@ -5,19 +5,23 @@ import com.example.hotdealmoa.global.exception.ErrorCode;
 
 public class ResponseHandler {
 
-	public static <T> ResponseResult<T> success() {
-		return new ResponseResult<>(true);
+	public static <T> HttpResponseEntity<T> success(String message) {
+		return new HttpResponseEntity<>(message);
 	}
 
-	public static <T> ResponseResult<T> success(T response) {
-		return new ResponseResult<>(response);
+	public static <T> HttpResponseEntity<T> success(T data) {
+		return new HttpResponseEntity<>(data);
 	}
 
-	public static <T> ResponseResult<T> error(final CustomException e) {
-		return new ResponseResult<>(new ErrorResponse(e.getErrorCode()));
+	public static <T> HttpResponseEntity<T> success(String message, T data) {
+		return new HttpResponseEntity<>(message, data);
 	}
 
-	public static <T> ResponseResult<T> error(ErrorCode errorCode) {
-		return new ResponseResult<>(new ErrorResponse(errorCode));
+	public static <T> HttpResponseEntity<T> error(final CustomException e) {
+		return new HttpResponseEntity<>(e.getErrorCode());
+	}
+
+	public static <T> HttpResponseEntity<T> error(ErrorCode errorCode) {
+		return new HttpResponseEntity<>(errorCode);
 	}
 }

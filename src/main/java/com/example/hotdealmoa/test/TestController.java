@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hotdealmoa.global.common.response.ResponseResult;
+import com.example.hotdealmoa.global.common.response.HttpResponseEntity;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 
@@ -54,7 +54,7 @@ public class TestController {
 	}
 
 	@GetMapping("/success")
-	public ResponseResult<?> testSuccess() {
+	public HttpResponseEntity<?> testSuccess() {
 		List<TestMember> list = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
@@ -65,8 +65,8 @@ public class TestController {
 	}
 
 	@GetMapping("/success1")
-	public ResponseResult<?> testSuccess1() {
-		return success();
+	public HttpResponseEntity<?> testSuccess1() {
+		return success("성공");
 	}
 
 	@GetMapping("/error")
