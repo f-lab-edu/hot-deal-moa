@@ -30,6 +30,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.mindrot:jbcrypt:0.4'
     testImplementation 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
