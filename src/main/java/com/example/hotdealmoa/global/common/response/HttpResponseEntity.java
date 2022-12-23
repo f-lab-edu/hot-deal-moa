@@ -1,5 +1,6 @@
 package com.example.hotdealmoa.global.common.response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import com.example.hotdealmoa.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class HttpResponseEntity<T> {
+public class HttpResponseEntity<T> implements Serializable {
 	private final LocalDateTime timestamp = LocalDateTime.now();
 	private final int status;
 	private final boolean result;
@@ -42,5 +43,12 @@ public class HttpResponseEntity<T> {
 		this.result = false;
 		this.data = null;
 		this.message = errorCode.getMessage();
+	}
+
+	public HttpResponseEntity(HttpStatus httpStatus, String message) {
+		this.status = httpStatus.value();
+		this.result = false;
+		this.data = null;
+		this.message = message;
 	}
 }

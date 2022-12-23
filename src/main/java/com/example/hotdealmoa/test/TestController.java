@@ -69,6 +69,11 @@ public class TestController {
 		return success("성공");
 	}
 
+	@GetMapping("/message")
+	public String message() {
+		return ErrorCode.DUPLICATION_EMAIL.getMessage();
+	}
+
 	@GetMapping("/error")
 	public void testError() {
 		throw new CustomException(ErrorCode.BAD_REQUEST);
