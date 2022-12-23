@@ -1,6 +1,7 @@
 package com.example.hotdealmoa.member.domain;
 
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
+import com.example.hotdealmoa.global.util.EncryptionUtils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,5 +56,12 @@ public class Member extends BaseTimeEntity {
 		this.phoneNumber = phoneNumber;
 		this.userRole = userRole;
 		this.address = address;
+	}
+
+	/**
+	 * 패스워드 암호화 처리
+	 */
+	public void encryptPassword() {
+		this.password = EncryptionUtils.encrypt(this.password);
 	}
 }
