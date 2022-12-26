@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.hotdealmoa.global.common.response.ResponseEnum;
 import com.example.hotdealmoa.global.common.response.SuccessResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
@@ -84,8 +85,8 @@ public class TestController {
 	}
 
 	@PostMapping("/testJoin")
-	public JoinDTO testJoin(@Valid @RequestBody JoinDTO joinDTO) {
-		return joinDTO;
+	public SuccessResponse<?> testJoin(@Valid @RequestBody JoinDTO joinDTO) {
+		return success(ResponseEnum.CREATE_SUCCESS);
 	}
 
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)

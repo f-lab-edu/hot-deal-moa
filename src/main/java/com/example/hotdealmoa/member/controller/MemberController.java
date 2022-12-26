@@ -36,7 +36,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/join")
-	public SuccessResponse<?> join(@RequestBody @Valid JoinDTO joinDTO) {
+	public SuccessResponse<?> join(@Valid @RequestBody JoinDTO joinDTO) {
 		memberService.join(joinDTO);
 		return success(ResponseEnum.CREATE_SUCCESS);
 	}

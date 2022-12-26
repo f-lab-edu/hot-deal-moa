@@ -26,6 +26,7 @@ public class MemberService {
 		return memberRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 	}
 
+	@Transactional
 	public void isExistsEmail(String email) {
 		if (StringUtils.isEmpty(email)) {
 			throw new CustomException(ErrorCode.INPUT_ERROR);
