@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hotdealmoa.global.common.response.HttpResponseEntity;
 import com.example.hotdealmoa.global.common.response.ResponseEnum;
+import com.example.hotdealmoa.global.common.response.SuccessResponse;
 import com.example.hotdealmoa.member.dto.JoinDTO;
 import com.example.hotdealmoa.member.service.MemberService;
 
@@ -30,13 +30,13 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@GetMapping("/email-exists")
-	public HttpResponseEntity<?> isExistsEmail(@Email @RequestParam("email") String email) {
+	public SuccessResponse<?> isExistsEmail(@Email @RequestParam("email") String email) {
 		memberService.isExistsEmail(email);
 		return success(ResponseEnum.NOT_USED_EMAIL);
 	}
 
 	@PostMapping("/join")
-	public HttpResponseEntity<?> join(@RequestBody @Valid JoinDTO joinDTO) {
+	public SuccessResponse<?> join(@RequestBody @Valid JoinDTO joinDTO) {
 		memberService.join(joinDTO);
 		return success(ResponseEnum.CREATE_SUCCESS);
 	}

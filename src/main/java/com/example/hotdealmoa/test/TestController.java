@@ -11,13 +11,17 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hotdealmoa.global.common.response.HttpResponseEntity;
+import com.example.hotdealmoa.global.common.response.SuccessResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
+import com.example.hotdealmoa.member.dto.JoinDTO;
 
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +58,7 @@ public class TestController {
 	}
 
 	@GetMapping("/success")
-	public HttpResponseEntity<?> testSuccess() {
+	public SuccessResponse<?> testSuccess() {
 		List<TestMember> list = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
@@ -65,7 +69,7 @@ public class TestController {
 	}
 
 	@GetMapping("/success1")
-	public HttpResponseEntity<?> testSuccess1() {
+	public SuccessResponse<?> testSuccess1() {
 		return success("성공");
 	}
 
@@ -77,6 +81,11 @@ public class TestController {
 	@GetMapping("/error")
 	public void testError() {
 		throw new CustomException(ErrorCode.BAD_REQUEST);
+	}
+
+	@PostMapping("/testJoin")
+	public JoinDTO testJoin(@Valid @RequestBody JoinDTO joinDTO) {
+		return joinDTO;
 	}
 
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
