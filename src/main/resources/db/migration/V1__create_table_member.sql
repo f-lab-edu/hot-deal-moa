@@ -13,4 +13,5 @@ CREATE TABLE member
 
 # 관리자 계정 추가
 INSERT INTO member(email, name, password, user_role, phone_number, address)
-VALUES ('admin@hotdealmoa.com', 'manager', 'Qwe123!@#', 'ROLE_ADMIN', '010-1234-1234', 'seoul');
+VALUES ('admin@hotdealmoa.com', 'manager', '$2a$10$5cV/k.d3AXoryInEUyzcseKdSp5PgBVWhS.X3wifLhWGH2Mz5f6Fq',
+        'ROLE_ADMIN', '010-1234-1234', 'seoul');
