@@ -3,7 +3,7 @@ CREATE TABLE member
     id           bigint       not null auto_increment primary key,
     email        varchar(30)  not null,
     name         varchar(20)  not null,
-    password     varchar(20)  not null,
+    password     varchar(100)  not null,
     user_role    varchar(20) default 'ROLE_USER',
     phone_number varchar(20)  not null,
     address      varchar(100) not null,
