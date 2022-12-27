@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotdealmoa.global.common.response.ResponseEnum;
 import com.example.hotdealmoa.global.common.response.SuccessResponse;
+import com.example.hotdealmoa.global.exception.CustomException;
+import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.member.dto.JoinDTO;
 import com.example.hotdealmoa.member.service.MemberService;
 
@@ -30,13 +32,15 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@GetMapping("/email-exists")
-	public SuccessResponse<?> isExistsEmail(@Email @RequestParam("email") String email) {
-		memberService.isExistsEmail(email);
+	public SuccessResponse<Void> isExistsEmail(@Email @RequestParam("email") String email) {
+		if (memberService.isExistsEmail(email)) {
+			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
+		}
 		return success(ResponseEnum.NOT_USED_EMAIL);
 	}
 
 	@PostMapping("/join")
-	public SuccessResponse<?> join(@Valid @RequestBody JoinDTO joinDTO) {
+	public SuccessResponse<Void> join(@Valid @RequestBody JoinDTO joinDTO) {
 		memberService.join(joinDTO);
 		return success(ResponseEnum.CREATE_SUCCESS);
 	}

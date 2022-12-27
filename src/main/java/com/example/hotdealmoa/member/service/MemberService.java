@@ -19,24 +19,24 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 
 	private final MemberRepository memberRepository;
-
 	private final JoinMapper joinMapper;
 
 	@Transactional
-	public void isExistsEmail(String email) {
+	public boolean isExistsEmail(String email) {
 		if (StringUtils.isEmpty(email)) {
 			throw new CustomException(ErrorCode.INPUT_ERROR);
 		}
-
-		memberRepository.findByEmail(email).ifPresent(member -> {
-			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
-		});
+		return memberRepository.findByEmail(email).isPresent();
 	}
 
 	@Transactional
 	public void join(JoinDTO joinDTO) {
 
-		isExistsEmail(joinDTO.getEmail()); // 중복 이메일 체크
+		// 중복 이메일 체크
+		if (isExistsEmail(joinDTO.getEmail())) {
+			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
+		}
+		
 		Member member = joinMapper.toEntity(joinDTO);
 
 		String encryptPass = EncryptionUtils.encrypt(member.getPassword());  // 패스워드 암호화 처리
