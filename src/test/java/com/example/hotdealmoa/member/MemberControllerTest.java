@@ -2,7 +2,6 @@ package com.example.hotdealmoa.member;
 
 import static com.example.hotdealmoa.global.config.RestDocsConfig.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -71,7 +70,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 
 		String email = "aaa@naver.com";
 
-		given(memberService.isExistsEmail(email)).willReturn(true);
+		given(memberService.isExistsEmail(email)).willReturn(false);
 
 		mockMvc.perform(get(BASIC_URL + "email-exists")
 				.contentType(MediaType.APPLICATION_JSON)
