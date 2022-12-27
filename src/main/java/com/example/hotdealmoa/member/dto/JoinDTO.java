@@ -35,7 +35,7 @@ public class JoinDTO {
 	private String phoneNumber;
 
 	@EnumValid(message = "VALID_MEMBER.USER_ROLE")
-	private UserRole userRole;
+	private UserRole userRole = UserRole.ROLE_USER;
 	@NotBlank
 	@Length(min = 1, max = 30)
 	private String address;
