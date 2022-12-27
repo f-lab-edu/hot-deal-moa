@@ -8,8 +8,13 @@ public class EncryptionUtils {
 		return BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
-	public static boolean isMatch(String password, String hashedPassword) {
-		return BCrypt.checkpw(password, hashedPassword);
+	/**
+	 * @param plainPassword 평문 패스워드
+	 * @param hashedPassword 암호화된 패스워드
+	 * @return true/false
+	 */
+	public static boolean isMatch(String plainPassword, String hashedPassword) {
+		return BCrypt.checkpw(plainPassword, hashedPassword);
 	}
 
 }

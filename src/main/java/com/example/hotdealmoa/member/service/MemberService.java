@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
+import com.example.hotdealmoa.global.util.EncryptionUtils;
 import com.example.hotdealmoa.member.domain.Member;
 import com.example.hotdealmoa.member.dto.JoinDTO;
 import com.example.hotdealmoa.member.mapper.JoinMapper;
@@ -21,11 +22,6 @@ public class MemberService {
 
 	private final JoinMapper joinMapper;
 
-	@Transactional(readOnly = true)
-	public Member findById(Long id) {
-		return memberRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-	}
-
 	@Transactional
 	public void isExistsEmail(String email) {
 		if (StringUtils.isEmpty(email)) {
@@ -40,14 +36,11 @@ public class MemberService {
 	@Transactional
 	public void join(JoinDTO joinDTO) {
 
-		// 중복 이메일 체크
-		isExistsEmail(joinDTO.getEmail());
-
+		isExistsEmail(joinDTO.getEmail()); // 중복 이메일 체크
 		Member member = joinMapper.toEntity(joinDTO);
 
-		// 패스워드 암호화 처리
-		member.encryptPassword();
-
+		String encryptPass = EncryptionUtils.encrypt(member.getPassword());  // 패스워드 암호화 처리
+		member.encryptPassword(encryptPass);
 		memberRepository.save(member);
 	}
 }
