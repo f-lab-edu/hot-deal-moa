@@ -43,15 +43,13 @@ public abstract class AbstractControllerTest {
 	}
 
 	protected ResponseFieldsSnippet defaultResponseFields() {
-		return responseFields(fieldWithPath("timestamp").type(JsonFieldType.STRING).description("응답 시간"),
-			fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
+		return responseFields(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
 			fieldWithPath("data").type(JsonFieldType.NULL).description("데이터"),
 			fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"));
 	}
 
 	protected ResponseFieldsSnippet ErrorResponseFields() {
-		return responseFields(fieldWithPath("timestamp").type(JsonFieldType.STRING).description("응답 시간"),
-			fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
+		return responseFields(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
 			fieldWithPath("field").type(JsonFieldType.STRING).description("필드"),
 			fieldWithPath("message").type(JsonFieldType.STRING).description("중복된 이메일"));
 	}
