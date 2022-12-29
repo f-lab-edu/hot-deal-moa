@@ -1,4 +1,4 @@
-package com.example.hotdealmoa.global.config.common;
+package com.example.hotdealmoa.global.common;
 
 import java.time.LocalDateTime;
 

@@ -3,14 +3,9 @@ server:
   port: 80
 
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: true
-  flyway:
-    enabled: false
+  messages:
+    basename: messages
+    encoding: UTF-8
   web:
     resources:
       static-locations: classpath:/static/docs
@@ -25,6 +20,16 @@ spring:
   config:
     activate:
       on-profile: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    open-in-view:
+  flyway:
+    enabled: false
   datasource:
     url: ENC(lHbsII87f/GzFRwsdlZQoVYmIOYu0BEpey6OZ5uaovFkSnFk+hSc9sRyGHTnBE9l)
     username: ENC(1Oyv5OFKC8XKEK8usLmfHQ==)
@@ -36,7 +41,16 @@ spring:
   config:
     activate:
       on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
   datasource:
-    url: ENC(yeTBHVnIbqE94/rebR0nOfCcIk+Adiw/35vU9KeSFNShsRcYJ4ofLi7TOmMDOAgLwO1oFX59UtlQziefCAsB9qZ0LT8Fd8e6t32crAPnu4gGyDLxb1zkhiaCHuYawhVV)
+    url: ENC(RK/a+8MvwFBRYzrQgKSyB91Qtt47ehbJ483+7208anoc7KWGStIpcBznp80z29Kx52rdhOWMnq0PPw0EvRhR1Vp8Qp5OBwPRYEXbcDA3KxXmFEww5JvdUqBxH8oyC7Zr)
     username: ENC(1Oyv5OFKC8XKEK8usLmfHQ==)
     password: ENC(jSslXA5VwV5JSDGwwOh9QNd5bQcdweKy)
