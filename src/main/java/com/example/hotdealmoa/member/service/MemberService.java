@@ -30,17 +30,17 @@ public class MemberService {
 	}
 
 	@Transactional
-	public void join(JoinDTO joinDTO) {
-
+	public boolean join(JoinDTO joinDTO) {
 		// 중복 이메일 체크
 		if (isExistsEmail(joinDTO.getEmail())) {
 			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
 		}
-		
+
 		Member member = joinMapper.toEntity(joinDTO);
 
 		String encryptPass = EncryptionUtils.encrypt(member.getPassword());  // 패스워드 암호화 처리
 		member.encryptPassword(encryptPass);
-		memberRepository.save(member);
+
+		return memberRepository.save(member).getId() > 0;
 	}
 }

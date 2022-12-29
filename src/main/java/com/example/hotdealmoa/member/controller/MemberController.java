@@ -40,8 +40,10 @@ public class MemberController {
 	}
 
 	@PostMapping("/join")
-	public SuccessResponse<Void> join(@Valid @RequestBody JoinDTO joinDTO) {
-		memberService.join(joinDTO);
+	public SuccessResponse<Long> join(@Valid @RequestBody JoinDTO joinDTO) {
+		if (!memberService.join(joinDTO)) {
+			throw new CustomException(ErrorCode.MEMBER_SIGNUP_FAIL);
+		}
 		return success(ResponseEnum.CREATE_SUCCESS);
 	}
 }
