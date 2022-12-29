@@ -46,7 +46,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.address("서울시")
 			.build();
 
-		given(memberService.join(joinDTO)).willReturn(any());
+		given(memberService.join(any())).willReturn(true);
 
 		mockMvc.perform(post(BASIC_URL + "join").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(joinDTO)))
@@ -62,6 +62,36 @@ public class MemberControllerTest extends AbstractControllerTest {
 					fieldWithPath("address").type(JsonFieldType.STRING).description("주소")
 						.attributes(field("constraints", "1 ~ 30자")))
 				, defaultResponseFields()));
+	}
+
+	@Test
+	@DisplayName("회원 가입 실패 테스트")
+	void join_fail() throws Exception {
+		JoinDTO joinDTO = JoinDTO.builder()
+			.email("test1234@naver.com")
+			.password("Qwe123!@#")
+			.name("test1234")
+			.phoneNumber("010-1234-5678")
+			.userRole(UserRole.ROLE_USER)
+			.address("서울시")
+			.build();
+
+		given(memberService.join(any())).willReturn(false);
+
+		mockMvc.perform(post(BASIC_URL + "join").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(joinDTO)))
+			.andExpect(status().is4xxClientError())
+			.andDo(restDocs.document(
+				requestFields(fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
+						.attributes(field("constraints", "8 ~ 15자")),
+					fieldWithPath("name").type(JsonFieldType.STRING).description("이름")
+						.attributes(field("constraints", "1 ~ 20자")),
+					fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("휴대폰번호"),
+					fieldWithPath("userRole").type(JsonFieldType.STRING).description("계정권한"),
+					fieldWithPath("address").type(JsonFieldType.STRING).description("주소")
+						.attributes(field("constraints", "1 ~ 30자")))
+				, errorResponseFields()));
 	}
 
 	@Test
