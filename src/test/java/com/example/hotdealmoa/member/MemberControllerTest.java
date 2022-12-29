@@ -7,8 +7,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,10 +23,6 @@ import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.controller.MemberController;
 import com.example.hotdealmoa.member.domain.UserRole;
 import com.example.hotdealmoa.member.dto.JoinDTO;
-import com.example.hotdealmoa.member.dto.LoginDTO;
-import com.example.hotdealmoa.member.dto.MemberDTO;
-import com.example.hotdealmoa.member.dto.UpdateMemberDTO;
-import com.example.hotdealmoa.member.dto.UpdatePasswordDTO;
 import com.example.hotdealmoa.member.service.MemberService;
 
 @WebMvcTest(value = MemberController.class, includeFilters = {
