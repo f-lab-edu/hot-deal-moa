@@ -1,6 +1,7 @@
 package com.example.hotdealmoa.global.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,8 +20,8 @@ public class GlobalExceptionHandler {
 	 *  Custom Exception
 	 */
 	@ExceptionHandler(CustomException.class)
-	protected ErrorResponse handleCustomException(final CustomException e) {
-		log.error("CustomException: {}", e.getErrorCode());
+	protected ResponseEntity<ErrorResponse> handleCustomException(final CustomException e) {
+		log.error("CustomException", e);
 		return ResponseHandler.error(e);
 	}
 
@@ -28,7 +29,8 @@ public class GlobalExceptionHandler {
 	 *  Validation Exception
 	 */
 	@ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
-	protected ErrorResponse handleValidException(final Exception e) {
+	protected ResponseEntity<ErrorResponse> handleValidException(final Exception e) {
+		log.error("Validation Exception", e);
 
 		// @Valid 검증 에러
 		if (e instanceof MethodArgumentNotValidException) {

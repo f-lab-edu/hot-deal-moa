@@ -14,12 +14,6 @@ public class ErrorResponse implements Serializable {
 	private final String field;
 	private final String message;
 
-	public ErrorResponse(ErrorCode errorCode) {
-		this.status = errorCode.getStatus().value();
-		this.field = "";
-		this.message = errorCode.getMessage();
-	}
-
 	public ErrorResponse(HttpStatus httpStatus, String message) {
 		this.status = httpStatus.value();
 		this.field = "";

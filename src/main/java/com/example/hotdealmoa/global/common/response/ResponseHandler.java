@@ -1,9 +1,9 @@
 package com.example.hotdealmoa.global.common.response;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.example.hotdealmoa.global.exception.CustomException;
-import com.example.hotdealmoa.global.exception.ErrorCode;
 
 public class ResponseHandler {
 
@@ -19,23 +19,22 @@ public class ResponseHandler {
 		return new SuccessResponse<>(data);
 	}
 
-	public static <T> SuccessResponse<T> success(String message, T data) {
-		return new SuccessResponse<>(message, data);
+	public static <T> SuccessResponse<T> success(ResponseEnum responseEnum, T data) {
+		return new SuccessResponse<>(responseEnum.getMessage(), data);
 	}
 
-	public static ErrorResponse error(final CustomException e) {
-		return new ErrorResponse(e.getErrorCode());
+	public static ResponseEntity<ErrorResponse> error(final CustomException e) {
+		return ResponseEntity.status(e.getStatus())
+			.body(new ErrorResponse(e.getStatus(), e.getMessage()));
 	}
 
-	public static ErrorResponse error(ErrorCode errorCode) {
-		return new ErrorResponse(errorCode);
+	public static ResponseEntity<ErrorResponse> error(HttpStatus httpStatus, String message) {
+		return ResponseEntity.status(httpStatus.value())
+			.body(new ErrorResponse(httpStatus, message));
 	}
 
-	public static ErrorResponse error(HttpStatus httpStatus, String message) {
-		return new ErrorResponse(httpStatus, message);
-	}
-
-	public static ErrorResponse error(HttpStatus httpStatus, String field, String message) {
-		return new ErrorResponse(httpStatus, field, message);
+	public static ResponseEntity<ErrorResponse> error(HttpStatus httpStatus, String field, String message) {
+		return ResponseEntity.status(httpStatus.value())
+			.body(new ErrorResponse(httpStatus, field, message));
 	}
 }
