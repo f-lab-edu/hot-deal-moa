@@ -7,6 +7,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +25,10 @@ import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.controller.MemberController;
 import com.example.hotdealmoa.member.domain.UserRole;
 import com.example.hotdealmoa.member.dto.JoinDTO;
+import com.example.hotdealmoa.member.dto.LoginDTO;
+import com.example.hotdealmoa.member.dto.MemberDTO;
+import com.example.hotdealmoa.member.dto.UpdateMemberDTO;
+import com.example.hotdealmoa.member.dto.UpdatePasswordDTO;
 import com.example.hotdealmoa.member.service.MemberService;
 
 @WebMvcTest(value = MemberController.class, includeFilters = {
@@ -46,7 +52,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.address("서울시")
 			.build();
 
-		doNothing().when(memberService).join(joinDTO);
+		given(memberService.join(joinDTO)).willReturn(any());
 
 		mockMvc.perform(post(BASIC_URL + "join").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(joinDTO)))
@@ -54,13 +60,13 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.andDo(restDocs.document(
 				requestFields(fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
 					fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
-						.attributes(field("constraints", "8자 이상 15자 이하")),
+						.attributes(field("constraints", "8 ~ 15자")),
 					fieldWithPath("name").type(JsonFieldType.STRING).description("이름")
-						.attributes(field("constraints", "1자 이상 20자 이하")),
+						.attributes(field("constraints", "1 ~ 20자")),
 					fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("휴대폰번호"),
 					fieldWithPath("userRole").type(JsonFieldType.STRING).description("계정권한"),
 					fieldWithPath("address").type(JsonFieldType.STRING).description("주소")
-						.attributes(field("constraints", "1자 이상 30자 이하")))
+						.attributes(field("constraints", "1 ~ 30자")))
 				, defaultResponseFields()));
 	}
 
@@ -95,12 +101,12 @@ public class MemberControllerTest extends AbstractControllerTest {
 		mockMvc.perform(get(BASIC_URL + "email-exists")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("email", email))
-			.andExpect(status().isOk())
+			.andExpect(status().is4xxClientError())
 			.andDo(restDocs.document(
 				queryParameters(
 					parameterWithName("email").description("이메일")
 				),
-				ErrorResponseFields()));
+				errorResponseFields()));
 	}
 
 }

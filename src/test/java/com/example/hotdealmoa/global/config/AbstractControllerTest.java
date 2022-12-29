@@ -3,6 +3,9 @@ package com.example.hotdealmoa.global.config;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,15 +47,32 @@ public abstract class AbstractControllerTest {
 	}
 
 	protected ResponseFieldsSnippet defaultResponseFields() {
-		return responseFields(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
-			fieldWithPath("data").type(JsonFieldType.NULL).description("데이터"),
-			fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"));
+		return responseFields(getDefaultResponseFields());
 	}
 
-	protected ResponseFieldsSnippet ErrorResponseFields() {
-		return responseFields(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
+	protected ResponseFieldsSnippet customResponseFields(List<FieldDescriptor> fieldDescriptors) {
+		List<FieldDescriptor> list = getResponseFields();
+		list.addAll(fieldDescriptors);
+		return responseFields(list);
+	}
+
+	protected ResponseFieldsSnippet errorResponseFields() {
+		return responseFields(List.of(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
 			fieldWithPath("field").type(JsonFieldType.STRING).description("필드"),
-			fieldWithPath("message").type(JsonFieldType.STRING).description("중복된 이메일"));
+			fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")));
+	}
+
+	protected List<FieldDescriptor> getResponseFields() {
+		List<FieldDescriptor> list = new ArrayList<>();
+		list.add(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"));
+		list.add(fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"));
+		return list;
+	}
+
+	protected List<FieldDescriptor> getDefaultResponseFields() {
+		List<FieldDescriptor> list = getResponseFields();
+		list.add(fieldWithPath("data").type(JsonFieldType.NULL).description("데이터"));
+		return list;
 	}
 
 }
