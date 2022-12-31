@@ -150,7 +150,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.password("Qwe123!@#")
 			.build();
 
-		given(loginService.login(loginDTO)).willReturn(true);
+		given(loginService.login(any())).willReturn(true);
 
 		mockMvc.perform(post(BASIC_URL + "login").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(loginDTO)))
