@@ -24,13 +24,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
+		// dev 환경에서 로그인 체크 무시
+		if (ConfigUtils.IS_DEV) {
+			return true;
+		}
+
 		if (handler instanceof HandlerMethod handlerMethod) {
 			LoginCheck loginCheck = handlerMethod.getMethodAnnotation(LoginCheck.class);
-
-			// dev 환경에서 로그인 체크 무시
-			if (ConfigUtils.IS_DEV) {
-				return true;
-			}
 
 			// LoginCheck 어노테이션 여부 체크
 			if (null == loginCheck) {
