@@ -150,7 +150,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.password("Qwe123!@#")
 			.build();
 
-		doNothing().when(loginService).login(loginDTO);
+		given(loginService.login(loginDTO)).willReturn(true);
 
 		mockMvc.perform(post(BASIC_URL + "login").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(loginDTO)))
@@ -171,6 +171,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.password("Qwe321#@!")
 			.build();
 
+		given(loginService.login(loginDTO)).willReturn(false);
 		doThrow(new CustomException(ErrorCode.USER_NOT_FOUND)).when(loginService)
 			.login(any());
 
