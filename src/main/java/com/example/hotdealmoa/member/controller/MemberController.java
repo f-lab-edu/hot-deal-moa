@@ -41,7 +41,7 @@ public class MemberController {
 	private final LoginService loginService;
 
 	@GetMapping("/email-exists")
-	public SuccessResponse<?> isExistsEmail(@Email @RequestParam("email") String email) {
+	public SuccessResponse<Void> isExistsEmail(@Email @RequestParam("email") String email) {
 		if (memberService.isExistsEmail(email)) {
 			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
 		}
@@ -49,24 +49,26 @@ public class MemberController {
 	}
 
 	@PostMapping("/join")
-	public SuccessResponse<?> join(@Valid @RequestBody JoinDTO joinDTO) {
+	public SuccessResponse<Void> join(@Valid @RequestBody JoinDTO joinDTO) {
 		if (!memberService.join(joinDTO)) {
-			throw new CustomException(ErrorCode.MEMBER_SIGNUP_FAIL);
+			throw new CustomException(ErrorCode.FAIL);
 		}
-		return success(ResponseEnum.CREATE_SUCCESS);
+		return success(ResponseEnum.SUCCESS);
 	}
 
 	@PostMapping("/login")
-	public SuccessResponse<?> login(@Valid @RequestBody LoginDTO loginDTO) {
-		loginService.login(loginDTO);
-		return success(ResponseEnum.LOGIN_SUCCESS);
+	public SuccessResponse<Void> login(@Valid @RequestBody LoginDTO loginDTO) {
+		if (!loginService.login(loginDTO)) {
+			throw new CustomException(ErrorCode.FAIL);
+		}
+		return success(ResponseEnum.SUCCESS);
 	}
 
 	@LoginCheck
 	@GetMapping("/logout")
-	public SuccessResponse<?> logout() {
+	public SuccessResponse<Void> logout() {
 		loginService.logout();
-		return success(ResponseEnum.LOGOUT_SUCCESS);
+		return success(ResponseEnum.SUCCESS);
 	}
 
 	@LoginCheck
@@ -84,7 +86,7 @@ public class MemberController {
 
 	@LoginCheck
 	@PutMapping("/change-password")
-	public SuccessResponse<?> changePassword(@CurrentUser String email,
+	public SuccessResponse<Void> changePassword(@CurrentUser String email,
 		@Valid @RequestBody UpdatePasswordDTO updatePasswordDTO) {
 		memberService.changePassword(email, updatePasswordDTO);
 		return success(ResponseEnum.PROFILE_UPDATE_SUCCESS);

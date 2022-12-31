@@ -2,6 +2,7 @@ package com.example.hotdealmoa.member.service;
 
 import static com.example.hotdealmoa.global.common.RedisKey.*;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,15 +25,16 @@ public class LoginService {
 	private final HttpSession httpSession;
 
 	@Transactional(readOnly = true)
-	public void login(LoginDTO loginDTO) {
+	public boolean login(LoginDTO loginDTO) {
 		Member member = memberService.findByEmail(loginDTO.getEmail());
 
 		if (!EncryptionUtils.isMatch(loginDTO.getPassword(), member.getPassword())) {
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		}
 
-		// Redis 서버에 로그인 세션 저장
 		httpSession.setAttribute(USER_ID, member.getEmail());
+
+		return StringUtils.equals(getCurrentUser(), loginDTO.getEmail());
 	}
 
 	public void logout() {

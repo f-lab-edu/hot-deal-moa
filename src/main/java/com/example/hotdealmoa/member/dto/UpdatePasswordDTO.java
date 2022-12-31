@@ -26,4 +26,7 @@ public class UpdatePasswordDTO {
 		this.currentPassword = currentPassword;
 		this.newPassword = newPassword;
 	}
+
+
+
 }

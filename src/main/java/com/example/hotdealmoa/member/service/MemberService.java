@@ -36,7 +36,6 @@ public class MemberService {
 
 	@Transactional
 	public boolean join(JoinDTO joinDTO) {
-
 		if (isExistsEmail(joinDTO.getEmail())) {
 			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
 		}

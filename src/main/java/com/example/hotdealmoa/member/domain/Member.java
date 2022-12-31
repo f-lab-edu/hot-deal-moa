@@ -68,11 +68,11 @@ public class Member extends BaseTimeEntity {
 	/**
 	 * 회원 정보 업데이트
 	 */
-	public Member updateMember(UpdateMemberDTO updateMemberDTO, String password) {
+	public Member updateMember(UpdateMemberDTO updateMemberDTO, String encryptPassword) {
 		this.name = updateMemberDTO.getName();
 		this.address = updateMemberDTO.getAddress();
 		this.phoneNumber = updateMemberDTO.getPhoneNumber();
-		this.password = password;
+		this.password = encryptPassword;
 		return this;
 	}
 
