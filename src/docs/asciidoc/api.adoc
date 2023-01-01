@@ -8,11 +8,13 @@
 
 == Member
 
-=== 회원 가입
+=== 회원 가입 성공
 
 operation::member-controller-test/join_success[snippets='request-fields,http-request,response-fields,http-response']
 
-=== 이메일 사용 여부
+=== 회원 가입 실패
+
+operation::member-controller-test/join_fail[snippets='request-fields,http-request,response-fields,http-response']
 
 ==== 사용 가능한 이메일
 
@@ -21,3 +23,31 @@ operation::member-controller-test/email_not-exists[snippets='query-parameters,ht
 ==== 이미 사용중 인 이메일
 
 operation::member-controller-test/email_exists[snippets='query-parameters,http-request,response-fields,http-response']
+
+=== 로그인 성공
+
+operation::member-controller-test/login_success[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 로그인 실패
+
+operation::member-controller-test/login_fail[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 로그 아웃
+
+operation::member-controller-test/logout[snippets='http-request,response-fields,http-response']
+
+=== 회원 상세 정보 가져오기
+
+operation::member-controller-test/get-profile[snippets='http-request,response-fields,http-response']
+
+=== 회원 정보 수정
+
+operation::member-controller-test/update_profile[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 패스워드 변경 성공
+
+operation::member-controller-test/change_password_success[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 패스워드 변경 실패
+
+operation::member-controller-test/change_password_fail[snippets='request-fields,http-request,response-fields,http-response']

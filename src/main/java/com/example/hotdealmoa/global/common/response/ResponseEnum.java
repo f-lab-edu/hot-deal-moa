@@ -7,9 +7,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ResponseEnum {
 
-	// 회원 가입
+	// common
+	SUCCESS("SUCCESS"),
+
+	// Member
 	NOT_USED_EMAIL("MEMBER.NOT_USED_EMAIL"),
-	CREATE_SUCCESS("MEMBER.CREATE_SUCCESS"),
+	PROFILE_UPDATE_SUCCESS("MEMBER.PROFILE_UPDATE_SUCCESS"),
 
 	DUMMY("");
 

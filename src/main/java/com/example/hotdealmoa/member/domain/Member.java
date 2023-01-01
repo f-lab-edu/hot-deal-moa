@@ -1,6 +1,7 @@
 package com.example.hotdealmoa.member.domain;
 
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
+import com.example.hotdealmoa.member.dto.UpdateMemberDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -63,4 +64,16 @@ public class Member extends BaseTimeEntity {
 	public void encryptPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * 회원 정보 업데이트
+	 */
+	public Member updateMember(UpdateMemberDTO updateMemberDTO, String encryptPassword) {
+		this.name = updateMemberDTO.getName();
+		this.address = updateMemberDTO.getAddress();
+		this.phoneNumber = updateMemberDTO.getPhoneNumber();
+		this.password = encryptPassword;
+		return this;
+	}
+
 }
