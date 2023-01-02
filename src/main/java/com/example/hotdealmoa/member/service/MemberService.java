@@ -55,7 +55,7 @@ public class MemberService {
 		}
 
 		return memberRepository.findByEmail(email)
-			.orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 	}
 
 	public MemberDTO getProfile(String email) {

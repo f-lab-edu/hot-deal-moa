@@ -172,7 +172,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 			.build();
 
 		given(loginService.login(loginDTO)).willReturn(false);
-		doThrow(new CustomException(ErrorCode.USER_NOT_FOUND)).when(loginService)
+		doThrow(new CustomException(ErrorCode.NOT_FOUND)).when(loginService)
 			.login(any());
 
 		mockMvc.perform(post(BASIC_URL + "login").contentType(MediaType.APPLICATION_JSON)
