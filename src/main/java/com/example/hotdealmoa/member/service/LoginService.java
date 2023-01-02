@@ -29,7 +29,7 @@ public class LoginService {
 		Member member = memberService.findByEmail(loginDTO.getEmail());
 
 		if (!EncryptionUtils.isMatch(loginDTO.getPassword(), member.getPassword())) {
-			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+			throw new CustomException(ErrorCode.NOT_FOUND);
 		}
 
 		httpSession.setAttribute(USER_ID, member.getEmail());
