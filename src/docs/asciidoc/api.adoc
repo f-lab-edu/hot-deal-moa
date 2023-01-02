@@ -51,3 +51,22 @@ operation::member-controller-test/change_password_success[snippets='request-fiel
 === 패스워드 변경 실패
 
 operation::member-controller-test/change_password_fail[snippets='request-fields,http-request,response-fields,http-response']
+
+
+== Review
+
+=== 리뷰 조회
+
+operation::review-test-controller-test/get-review-list[snippets='path-parameters,http-request,response-fields,http-response']
+
+=== 리뷰 등록
+
+operation::review-test-controller-test/create-review[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 리뷰 업데이트
+
+operation::review-test-controller-test/update-review[snippets='path-parameters,request-fields,http-request,response-fields,http-response']
+
+=== 리뷰 삭제
+
+operation::review-test-controller-test/delete-review[snippets='path-parameters,http-request,http-response']

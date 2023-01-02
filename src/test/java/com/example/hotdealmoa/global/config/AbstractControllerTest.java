@@ -57,7 +57,8 @@ public abstract class AbstractControllerTest {
 	}
 
 	protected ResponseFieldsSnippet errorResponseFields() {
-		return responseFields(List.of(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
+		return responseFields(List.of(
+			fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"),
 			fieldWithPath("field").type(JsonFieldType.STRING).description("필드"),
 			fieldWithPath("message").type(JsonFieldType.STRING).description("메세지")));
 	}
@@ -70,9 +71,20 @@ public abstract class AbstractControllerTest {
 	}
 
 	protected List<FieldDescriptor> getDefaultResponseFields() {
-		List<FieldDescriptor> list = getResponseFields();
+		List<FieldDescriptor> list = new ArrayList<>();
+		list.add(fieldWithPath("status").type(JsonFieldType.NUMBER).description("상태 코드"));
 		list.add(fieldWithPath("data").type(JsonFieldType.NULL).description("데이터"));
+		list.add(fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"));
 		return list;
 	}
 
+	protected ResponseFieldsSnippet customPageResponseFields(List<FieldDescriptor> fieldDescriptors) {
+		List<FieldDescriptor> list = getResponseFields();
+		list.addAll(fieldDescriptors);
+		list.add(fieldWithPath("data.totalPage").ignored());
+		list.add(fieldWithPath("data.pageSize").ignored());
+		list.add(fieldWithPath("data.totalElements").ignored());
+		list.add(fieldWithPath("data.pageNumber").ignored());
+		return responseFields(list);
+	}
 }

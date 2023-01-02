@@ -12,9 +12,10 @@ import com.example.hotdealmoa.member.repository.MemberRepository;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
 import com.example.hotdealmoa.review.domain.Review;
 import com.example.hotdealmoa.review.mapper.ReviewCreateMapper;
-import com.example.hotdealmoa.review.mapper.ReviewMapper;
+import com.example.hotdealmoa.review.mapper.ReviewUpdateMapper;
 import com.example.hotdealmoa.review.repository.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class ReviewService {
 
 	private final ReviewRepository reviewRepository;
 	private final MemberRepository memberRepository;
-	private final ReviewMapper reviewMapper;
+	private final ReviewUpdateMapper reviewUpdateMapper;
 	private final ReviewCreateMapper reviewCreateMapper;
 
 	@Transactional(readOnly = true)
@@ -45,12 +46,12 @@ public class ReviewService {
 	}
 
 	@Transactional
-	public ReviewDTO updateReview(Long id, ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+	public ReviewUpdateResponseDTO updateReview(Long id, ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
 		Review review = reviewRepository.findById(id)
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
 		review.updateReview(reviewUpdateRequestDTO);
-		return reviewMapper.toDto(review);
+		return reviewUpdateMapper.toDto(review);
 	}
 
 	@Transactional

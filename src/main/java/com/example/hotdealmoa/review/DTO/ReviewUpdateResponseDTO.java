@@ -1,8 +1,5 @@
 package com.example.hotdealmoa.review.DTO;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,22 +7,15 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReviewCreateRequestDTO {
+public class ReviewUpdateResponseDTO {
 	private String reviewImg;
-
-	@NotNull
-	@Max(value = 5)
 	private Integer star;
-
-	@NotBlank
 	private String content;
-	private Long productId;
 
 	@Builder
-	public ReviewCreateRequestDTO(String reviewImg, Integer star, String content, Long productId) {
+	public ReviewUpdateResponseDTO(String reviewImg, Integer star, String content) {
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;
-		this.productId = productId;
 	}
 }
