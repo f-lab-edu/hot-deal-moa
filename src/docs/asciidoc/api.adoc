@@ -57,7 +57,7 @@ operation::member-controller-test/change_password_fail[snippets='request-fields,
 
 === 리뷰 조회
 
-operation::review-test-controller-test/get-review-list[snippets='path-parameters,http-request,response-fields,http-response']
+operation::review-test-controller-test/get-review-list[snippets='query-parameters,http-request,response-fields,http-response']
 
 === 리뷰 등록
 
