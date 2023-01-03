@@ -3,8 +3,6 @@ package com.example.hotdealmoa.review.controller;
 import static com.example.hotdealmoa.global.common.response.ResponseHandler.*;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +22,7 @@ import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
+import com.example.hotdealmoa.review.DTO.ReviewSearchCondition;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
 import com.example.hotdealmoa.review.service.ReviewService;
@@ -40,10 +39,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewController {
 	private final ReviewService reviewService;
 
-	@GetMapping("/{productId}")
-	public SuccessResponse<PageResponse<ReviewDTO>> getReviewList(@PathVariable Long productId,
-		@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-		PageResponse<ReviewDTO> reviewList = reviewService.getReviewList(productId, pageable);
+	@GetMapping
+	public SuccessResponse<PageResponse<ReviewDTO>> getReviewList(
+		ReviewSearchCondition reviewSearchCondition, Pageable pageable) {
+		PageResponse<ReviewDTO> reviewList = reviewService.getReviewList(reviewSearchCondition, pageable);
 		return success(reviewList);
 	}
 

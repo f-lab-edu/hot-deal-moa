@@ -66,11 +66,14 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 
 		given(reviewService.getReviewList(any(), any())).willReturn(pageList);
 
-		mockMvc.perform(get(BASIC_URL + "/{productId}", ID))
+		mockMvc.perform(get(BASIC_URL)
+				.queryParam("productId", String.valueOf(1L))
+				.queryParam("buyerName", "ccc"))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
-				pathParameters(
-					parameterWithName("productId").description("상품 아이디")
+				queryParameters(
+					parameterWithName("productId").description("제품 ID"),
+					parameterWithName("buyerName").description("구매자 이름")
 				),
 				customPageResponseFields(
 					List.of(

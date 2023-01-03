@@ -11,6 +11,7 @@ import com.example.hotdealmoa.member.domain.Member;
 import com.example.hotdealmoa.member.repository.MemberRepository;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
+import com.example.hotdealmoa.review.DTO.ReviewSearchCondition;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
 import com.example.hotdealmoa.review.domain.Review;
@@ -32,8 +33,8 @@ public class ReviewService {
 	private final ReviewCreateMapper reviewCreateMapper;
 
 	@Transactional(readOnly = true)
-	public PageResponse<ReviewDTO> getReviewList(Long productId, Pageable pageable) {
-		return reviewRepository.getReviewListById(productId, pageable);
+	public PageResponse<ReviewDTO> getReviewList(ReviewSearchCondition reviewSearchCondition, Pageable pageable) {
+		return reviewRepository.getReviewListById(reviewSearchCondition, pageable);
 	}
 
 	@Transactional
