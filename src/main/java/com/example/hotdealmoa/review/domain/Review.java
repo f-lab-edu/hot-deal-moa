@@ -1,5 +1,7 @@
 package com.example.hotdealmoa.review.domain;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
 import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
 
@@ -28,8 +30,9 @@ public class Review extends BaseTimeEntity {
 	@Column(name = "review_img")
 	private String reviewImg;
 
-	@Column
-	private int star;
+	@ColumnDefault("0")
+	@Column(nullable = false)
+	private Integer star;
 
 	@Column(nullable = false)
 	private String content;
@@ -41,7 +44,7 @@ public class Review extends BaseTimeEntity {
 	private Long productId;
 
 	@Builder
-	public Review(Long id, String reviewImg, int star, String content, Long memberId, Long productId) {
+	public Review(Long id, String reviewImg, Integer star, String content, Long memberId, Long productId) {
 		this.id = id;
 		this.reviewImg = reviewImg;
 		this.star = star;
