@@ -1,20 +1,15 @@
 package com.example.hotdealmoa.review.domain;
 
-import static jakarta.persistence.FetchType.*;
-
 import org.hibernate.annotations.ColumnDefault;
 
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
-import com.example.hotdealmoa.member.domain.Member;
-import com.example.hotdealmoa.product.domain.Product;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,21 +37,27 @@ public class Review extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String content;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@Column(name = "member_id")
+	private Long memberId;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "product_id")
-	private Product product;
+	@Column(name = "product_id")
+	private Long productId;
 
 	@Builder
-	public Review(Long id, String reviewImg, Integer star, String content, Member member, Product product) {
+	public Review(Long id, String reviewImg, Integer star, String content, Long memberId, Long productId) {
 		this.id = id;
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;
-		this.member = member;
-		this.product = product;
+		this.memberId = memberId;
+		this.productId = productId;
 	}
+
+	public Review updateReview(ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+		this.reviewImg = reviewUpdateRequestDTO.getReviewImg();
+		this.star = reviewUpdateRequestDTO.getStar();
+		this.content = reviewUpdateRequestDTO.getContent();
+		return this;
+	}
+
 }
