@@ -60,7 +60,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("리뷰 리스트 조회 테스트")
+	@DisplayName("리뷰를 조회하다.")
 	void getReviewList() throws Exception {
 		PageResponse<ReviewDTO> pageList = createReviewDTOPage();
 
@@ -88,7 +88,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("리뷰 등록 테스트")
+	@DisplayName("리뷰를 등록하다.")
 	void createReview() throws Exception {
 
 		ReviewCreateRequestDTO reviewCreateRequestDTO = ReviewCreateRequestDTO.builder()
@@ -115,7 +115,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("리뷰 업데이트 테스트")
+	@DisplayName("리뷰 정보를 수정하다.")
 	void updateReview() throws Exception {
 		ReviewUpdateRequestDTO reviewUpdateRequestDTO = ReviewUpdateRequestDTO.builder()
 			.reviewImg("/image/aa.jpg")
@@ -152,7 +152,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("리뷰 삭제 테스트")
+	@DisplayName("리뷰를 삭제하다.")
 	void deleteReview() throws Exception {
 		doNothing().when(reviewService).deleteReview(ID);
 
