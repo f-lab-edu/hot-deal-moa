@@ -13,7 +13,5 @@ CREATE TABLE product
     category_id  bigint,
     seller_id    bigint,
     created_at   timestamp default CURRENT_TIMESTAMP,
-    updated_at   timestamp default CURRENT_TIMESTAMP,
-    foreign key (category_id) references category (id),
-    foreign key (seller_id) references member (id)
+    updated_at   timestamp default CURRENT_TIMESTAMP
 );

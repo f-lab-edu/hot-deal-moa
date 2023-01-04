@@ -52,6 +52,27 @@ operation::member-controller-test/change_password_success[snippets='request-fiel
 
 operation::member-controller-test/change_password_fail[snippets='request-fields,http-request,response-fields,http-response']
 
+== Product
+
+=== 상품 리스트 조회
+
+operation::product-controller-test/get-product-list[snippets='query-parameters,http-request,response-fields,http-response']
+
+=== 상품 상세 조회
+
+operation::product-controller-test/get-product-detail[snippets='path-parameters,http-request,response-fields,http-response']
+
+=== 상품 등록
+
+operation::product-controller-test/regi-product[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 상품 수정
+
+operation::product-controller-test/update-product[snippets='path-parameters,http-request,response-fields,http-response']
+
+=== 상품 삭제
+
+operation::product-controller-test/delete-product[snippets='path-parameters,http-request,response-fields,http-response']
 
 == Review
 
