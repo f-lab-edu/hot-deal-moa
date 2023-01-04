@@ -68,7 +68,7 @@ operation::product-controller-test/regi-product[snippets='request-fields,http-re
 
 === 상품 수정
 
-operation::product-controller-test/update-product[snippets='request-fields,http-request,response-fields,http-response']
+operation::product-controller-test/update-product[snippets='path-parameters,http-request,response-fields,http-response']
 
 === 상품 삭제
 

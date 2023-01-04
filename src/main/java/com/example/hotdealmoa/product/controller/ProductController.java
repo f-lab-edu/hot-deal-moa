@@ -62,9 +62,10 @@ public class ProductController {
 	}
 
 	@LoginCheck(role = UserRole.ROLE_SELLER)
-	@PutMapping
-	public SuccessResponse<ProductUpdateDTO> updateProduct(@Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
-		return success(productService.updateProduct(productUpdateDTO));
+	@PutMapping("/{id}")
+	public SuccessResponse<ProductUpdateDTO> updateProduct(@PathVariable Long id,
+		@Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
+		return success(productService.updateProduct(id, productUpdateDTO));
 	}
 
 	@LoginCheck(role = UserRole.ROLE_SELLER)

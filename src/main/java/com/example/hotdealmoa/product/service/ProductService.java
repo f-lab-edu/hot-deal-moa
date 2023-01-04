@@ -46,8 +46,8 @@ public class ProductService {
 	}
 
 	@Transactional
-	public ProductUpdateDTO updateProduct(final ProductUpdateDTO productUpdateDTO) {
-		Product product = productRepository.findById(productUpdateDTO.getId())
+	public ProductUpdateDTO updateProduct(final Long id, final ProductUpdateDTO productUpdateDTO) {
+		Product product = productRepository.findById(id)
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
 		product.updateProduct(productUpdateDTO);

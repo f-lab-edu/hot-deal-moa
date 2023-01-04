@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductUpdateDTO {
-	@NotNull
-	private Long id;
 	@NotBlank
 	private String title;
 	@NotBlank
@@ -32,9 +30,8 @@ public class ProductUpdateDTO {
 	private Long categoryId;
 
 	@Builder
-	public ProductUpdateDTO(Long id, String title, String content, String mainImg, String detailImg,
+	public ProductUpdateDTO(String title, String content, String mainImg, String detailImg,
 		Integer stock, Integer totalPrice, Integer deliveryFee, Long categoryId) {
-		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.mainImg = mainImg;

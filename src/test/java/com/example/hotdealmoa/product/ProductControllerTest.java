@@ -68,7 +68,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 리스트 조회 테스트")
+	@DisplayName("상품 리스트를 조회하다.")
 	void getProductList() throws Exception {
 		PageResponse<ProductDTO> pageList = createProductDTOPage();
 
@@ -101,7 +101,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 상세 조회 테스트")
+	@DisplayName("상품 상세 정보를 조회하다.")
 	void getProductDetail() throws Exception {
 		ProductDetailDTO productDetailDTO = ProductDetailDTO
 			.builder()
@@ -148,7 +148,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 등록 테스트")
+	@DisplayName("상품 등록을 수행하다.")
 	void regiProduct() throws Exception {
 		ProductCreateRequestDTO productCreateRequestDTO = ProductCreateRequestDTO
 			.builder()
@@ -190,10 +190,9 @@ public class ProductControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 수정 테스트")
+	@DisplayName("상품 정보를 수정하다.")
 	void updateProduct() throws Exception {
 		ProductUpdateDTO productUpdateDTO = ProductUpdateDTO.builder()
-			.id(ID)
 			.title("good1")
 			.content("상품 정보")
 			.mainImg("/image/main.jpg")
@@ -204,15 +203,17 @@ public class ProductControllerTest extends AbstractControllerTest {
 			.categoryId(ID)
 			.build();
 
-		given(productService.updateProduct(any())).willReturn(productUpdateDTO);
+		given(productService.updateProduct(any(), any())).willReturn(productUpdateDTO);
 
-		mockMvc.perform(put(BASIC_URL)
+		mockMvc.perform(put(BASIC_URL + "/{id}", ID)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(productUpdateDTO)))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
+				pathParameters(
+					parameterWithName("id").description("리뷰 ID")
+				),
 				requestFields(
-					fieldWithPath("id").type(JsonFieldType.NUMBER).description("상품 ID"),
 					fieldWithPath("title").type(JsonFieldType.STRING).description("상품 이름"),
 					fieldWithPath("content").type(JsonFieldType.STRING).description("상품 정보"),
 					fieldWithPath("mainImg").type(JsonFieldType.STRING).description("상품 메인 이미지"),
@@ -223,7 +224,6 @@ public class ProductControllerTest extends AbstractControllerTest {
 					fieldWithPath("categoryId").type(JsonFieldType.NUMBER).description("카테고리 ID")
 				), customResponseFields(
 					List.of(
-						fieldWithPath("data.id").type(JsonFieldType.NUMBER).description("상품 ID"),
 						fieldWithPath("data.title").type(JsonFieldType.STRING).description("상품 이름"),
 						fieldWithPath("data.content").type(JsonFieldType.STRING).description("상품 정보"),
 						fieldWithPath("data.mainImg").type(JsonFieldType.STRING).description("상품 메인 이미지"),
@@ -237,7 +237,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("상품 삭제 테스트")
+	@DisplayName("상품을 삭제하다.")
 	void deleteProduct() throws Exception {
 		doNothing().when(productService).deleteProduct(ID);
 
