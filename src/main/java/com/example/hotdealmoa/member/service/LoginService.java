@@ -10,6 +10,7 @@ import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.global.util.EncryptionUtils;
 import com.example.hotdealmoa.member.domain.Member;
+import com.example.hotdealmoa.member.domain.UserRole;
 import com.example.hotdealmoa.member.dto.LoginDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ public class LoginService {
 		}
 
 		httpSession.setAttribute(USER_ID, member.getEmail());
+		httpSession.setAttribute(USER_ROLE, member.getUserRole());
 
 		return StringUtils.equals(getCurrentUser(), loginDTO.getEmail());
 	}
@@ -44,4 +46,9 @@ public class LoginService {
 	public String getCurrentUser() {
 		return (String)httpSession.getAttribute(USER_ID);
 	}
+
+	public UserRole getCurrentRole() {
+		return (UserRole)httpSession.getAttribute(USER_ROLE);
+	}
+
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.hotdealmoa.product.domain.Product;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductCustomRepository {
 }
