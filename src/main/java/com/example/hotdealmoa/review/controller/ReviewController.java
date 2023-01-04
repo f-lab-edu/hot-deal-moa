@@ -51,6 +51,7 @@ public class ReviewController {
 	public SuccessResponse<Void> createReview(@CurrentUser String email,
 		@Valid @RequestBody ReviewCreateRequestDTO reviewCreateRequestDTO) {
 		if (!reviewService.createReview(email, reviewCreateRequestDTO)) {
+			log.error("create review error");
 			throw new CustomException(ErrorCode.FAIL);
 		}
 		return success(ResponseEnum.SUCCESS);

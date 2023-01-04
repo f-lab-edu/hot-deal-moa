@@ -38,8 +38,8 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 				member.name,
 				product.title))
 			.from(review)
-			.leftJoin(member).on(member.id.eq(review.memberId))
-			.leftJoin(product).on(product.id.eq(review.productId))
+			.innerJoin(member).on(member.id.eq(review.memberId))
+			.innerJoin(product).on(product.id.eq(review.productId))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
 			.where(
@@ -50,8 +50,8 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 		JPAQuery<Long> count = queryFactory
 			.select(review.count())
 			.from(review)
-			.leftJoin(member).on(member.id.eq(review.memberId))
-			.leftJoin(product).on(product.id.eq(review.productId))
+			.innerJoin(member).on(member.id.eq(review.memberId))
+			.innerJoin(product).on(product.id.eq(review.productId))
 			.where(
 				eqProductId(searchCondition.getProductId()),
 				eqBuyerName(searchCondition.getBuyerName())
