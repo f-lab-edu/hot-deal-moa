@@ -32,6 +32,7 @@ import com.example.hotdealmoa.member.dto.UpdatePasswordDTO;
 import com.example.hotdealmoa.member.service.LoginService;
 import com.example.hotdealmoa.member.service.MemberService;
 
+@DisplayName("회원 테스트")
 @WebMvcTest(value = MemberController.class, includeFilters = {
 	@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = MessageUtils.class)})
 public class MemberControllerTest extends AbstractControllerTest {

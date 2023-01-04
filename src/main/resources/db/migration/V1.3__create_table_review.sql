@@ -7,7 +7,5 @@ CREATE TABLE review
     member_id  bigint,
     product_id bigint,
     created_at timestamp default CURRENT_TIMESTAMP,
-    updated_at timestamp default CURRENT_TIMESTAMP,
-    foreign key (member_id) references member (id),
-    foreign key (product_id) references product (id)
+    updated_at timestamp default CURRENT_TIMESTAMP
 );
