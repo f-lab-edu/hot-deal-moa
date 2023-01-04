@@ -73,3 +73,21 @@ operation::product-controller-test/update-product[snippets='path-parameters,http
 === 상품 삭제
 
 operation::product-controller-test/delete-product[snippets='path-parameters,http-request,response-fields,http-response']
+
+== Review
+
+=== 리뷰 조회
+
+operation::review-test-controller-test/get-review-list[snippets='query-parameters,http-request,response-fields,http-response']
+
+=== 리뷰 등록
+
+operation::review-test-controller-test/create-review[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 리뷰 업데이트
+
+operation::review-test-controller-test/update-review[snippets='path-parameters,request-fields,http-request,response-fields,http-response']
+
+=== 리뷰 삭제
+
+operation::review-test-controller-test/delete-review[snippets='path-parameters,http-request,http-response']
