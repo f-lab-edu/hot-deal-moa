@@ -91,3 +91,9 @@ operation::review-test-controller-test/update-review[snippets='path-parameters,r
 === 리뷰 삭제
 
 operation::review-test-controller-test/delete-review[snippets='path-parameters,http-request,http-response']
+
+== Coupon
+
+=== 쿠폰 리스트 조회
+
+operation::coupon-controller-test/get-coupon-list[snippets='query-parameters,http-request,response-fields,http-response']

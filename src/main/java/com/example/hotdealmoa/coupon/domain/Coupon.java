@@ -1,21 +1,16 @@
 package com.example.hotdealmoa.coupon.domain;
 
-import static jakarta.persistence.FetchType.*;
-
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
-import com.example.hotdealmoa.member.domain.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,21 +39,25 @@ public class Coupon extends BaseTimeEntity {
 	@Column(name = "is_used", nullable = false)
 	private Boolean isUsed;
 
+	@ColumnDefault("false")
+	@Column(name = "is_expired", nullable = false)
+	private Boolean isExpired;
+
 	@Column(name = "expired_at", nullable = false)
 	private LocalDateTime expiredAt;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@Column(name = "member_id")
+	private Long memberId;
 
 	@Builder
-	public Coupon(Long id, String title, Integer discountPrice, Boolean isUsed, LocalDateTime expiredAt,
-		Member member) {
+	public Coupon(Long id, String title, Integer discountPrice, Boolean isUsed, Boolean isExpired,
+		LocalDateTime expiredAt, Long memberId) {
 		this.id = id;
 		this.title = title;
 		this.discountPrice = discountPrice;
 		this.isUsed = isUsed;
+		this.isExpired = isExpired;
 		this.expiredAt = expiredAt;
-		this.member = member;
+		this.memberId = memberId;
 	}
 }
