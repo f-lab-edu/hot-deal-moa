@@ -1,22 +1,17 @@
 package com.example.hotdealmoa.product.domain;
 
-import static jakarta.persistence.FetchType.*;
-
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.example.hotdealmoa.category.domain.Category;
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
-import com.example.hotdealmoa.member.domain.Member;
+import com.example.hotdealmoa.product.dto.ProductUpdateDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -64,18 +59,16 @@ public class Product extends BaseTimeEntity {
 	@Column(name = "end_at")
 	private LocalDateTime endAt;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "category_id")
-	private Category category;
+	@Column(name = "category_id")
+	private Long categoryId;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "seller_id")
-	private Member seller;
+	@Column(name = "seller_id")
+	private Long sellerId;
 
 	@Builder
 	public Product(Long id, String title, String content, String mainImg, String detailImg, Integer stock,
-		Integer totalPrice, Integer deliveryFee, LocalDateTime startAt, LocalDateTime endAt, Category category,
-		Member seller) {
+		Integer totalPrice, Integer deliveryFee, LocalDateTime startAt, LocalDateTime endAt, Long categoryId,
+		Long sellerId) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -86,7 +79,21 @@ public class Product extends BaseTimeEntity {
 		this.deliveryFee = deliveryFee;
 		this.startAt = startAt;
 		this.endAt = endAt;
-		this.category = category;
-		this.seller = seller;
+		this.categoryId = categoryId;
+		this.sellerId = sellerId;
 	}
+
+	public Product updateProduct(ProductUpdateDTO productUpdateRequestDTO) {
+		this.title = productUpdateRequestDTO.getTitle();
+		this.content = productUpdateRequestDTO.getContent();
+		this.mainImg = productUpdateRequestDTO.getMainImg();
+		this.detailImg = productUpdateRequestDTO.getDetailImg();
+		this.stock = productUpdateRequestDTO.getStock();
+		this.totalPrice = productUpdateRequestDTO.getTotalPrice();
+		this.deliveryFee = productUpdateRequestDTO.getDeliveryFee();
+		this.categoryId = productUpdateRequestDTO.getCategoryId();
+
+		return this;
+	}
+
 }

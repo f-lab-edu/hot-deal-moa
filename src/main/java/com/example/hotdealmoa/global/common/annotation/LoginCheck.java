@@ -6,6 +6,8 @@ import static java.lang.annotation.RetentionPolicy.*;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.example.hotdealmoa.member.domain.UserRole;
+
 /**
  * @LoginCheck :  현재 사용자가 로그인 한 사용자인지 확인
  * @Retention : 어느 시점까지 어노테이션의 메모리를 가져갈 지 설정
@@ -14,4 +16,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(METHOD)
 public @interface LoginCheck {
+	UserRole role() default UserRole.ROLE_USER;
 }

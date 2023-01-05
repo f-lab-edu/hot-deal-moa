@@ -9,6 +9,7 @@ import com.example.hotdealmoa.global.common.annotation.LoginCheck;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.global.util.ConfigUtils;
+import com.example.hotdealmoa.member.domain.UserRole;
 import com.example.hotdealmoa.member.service.LoginService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,6 +41,15 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			// 현재 로그인 세션 체크
 			if (StringUtils.isEmpty(loginService.getCurrentUser())) {
 				throw new CustomException(ErrorCode.NOT_LOGIN);
+			}
+
+			// 판매 가능한 권한 체크
+			if (loginCheck.role() == UserRole.ROLE_SELLER) {
+				UserRole currentRole = loginService.getCurrentRole();
+
+				if (currentRole == UserRole.ROLE_USER) {
+					throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+				}
 			}
 		}
 

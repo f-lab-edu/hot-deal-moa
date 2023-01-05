@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.hotdealmoa.review.domain.Review;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewCustomRepository {
 }
