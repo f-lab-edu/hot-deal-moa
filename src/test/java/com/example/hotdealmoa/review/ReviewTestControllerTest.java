@@ -77,12 +77,12 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 				),
 				customPageResponseFields(
 					List.of(
-						fieldWithPath("data.list.[].id").type(JsonFieldType.NUMBER).description("아이디"),
-						fieldWithPath("data.list.[].reviewImg").type(JsonFieldType.STRING).description("리뷰이미지"),
-						fieldWithPath("data.list.[].star").type(JsonFieldType.NUMBER).description("별점"),
-						fieldWithPath("data.list.[].content").type(JsonFieldType.STRING).description("리뷰 내용"),
-						fieldWithPath("data.list.[].buyerName").type(JsonFieldType.STRING).description("구매자 이름"),
-						fieldWithPath("data.list.[].productName").type(JsonFieldType.STRING).description("제품 명")
+						fieldWithPath("data.list[].id").type(JsonFieldType.NUMBER).description("아이디"),
+						fieldWithPath("data.list[].reviewImg").type(JsonFieldType.STRING).description("리뷰이미지"),
+						fieldWithPath("data.list[].star").type(JsonFieldType.NUMBER).description("별점"),
+						fieldWithPath("data.list[].content").type(JsonFieldType.STRING).description("리뷰 내용"),
+						fieldWithPath("data.list[].buyerName").type(JsonFieldType.STRING).description("구매자 이름"),
+						fieldWithPath("data.list[].productName").type(JsonFieldType.STRING).description("제품 명")
 					)
 				)));
 	}

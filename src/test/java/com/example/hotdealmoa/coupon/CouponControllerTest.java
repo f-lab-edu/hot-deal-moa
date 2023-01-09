@@ -59,7 +59,7 @@ public class CouponControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("쿠폰 리스트 조회 테스트")
+	@DisplayName("쿠폰을 조회하다.")
 	void getCouponList() throws Exception {
 		PageResponse<CouponDTO> pageList = createCouponDTOPage();
 

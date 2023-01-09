@@ -97,3 +97,30 @@ operation::review-test-controller-test/delete-review[snippets='path-parameters,h
 === 쿠폰 리스트 조회
 
 operation::coupon-controller-test/get-coupon-list[snippets='query-parameters,http-request,response-fields,http-response']
+
+
+== Order
+
+=== 결제 전 주문 정보
+
+operation::order-controller-test/get-order-info[snippets='query-parameters,http-request,response-fields,http-response']
+
+=== 주문 상세 정보
+
+operation::order-controller-test/get-order-detail-info[snippets='path-parameters,http-request,response-fields,http-response']
+
+=== 주문 리스트
+
+operation::order-controller-test/get-order-list[snippets='http-request,response-fields,http-response']
+
+=== 주문 진행 성공
+
+operation::order-controller-test/create-order-success[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 주문 진행 실패
+
+operation::order-controller-test/create-order-fail[snippets='request-fields,http-request,response-fields,http-response']
+
+=== 주문 상태 정보 업데이트
+
+operation::order-controller-test/update-order-status[snippets='path-parameters,request-fields,http-request,response-fields,http-response']

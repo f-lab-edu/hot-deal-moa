@@ -96,4 +96,8 @@ public class Product extends BaseTimeEntity {
 		return this;
 	}
 
+	public void updateStock(Integer stock) {
+		this.stock = stock;
+	}
+
 }
