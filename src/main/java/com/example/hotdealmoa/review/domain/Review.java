@@ -3,7 +3,7 @@ package com.example.hotdealmoa.review.domain;
 import org.hibernate.annotations.ColumnDefault;
 
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,20 +43,25 @@ public class Review extends BaseTimeEntity {
 	@Column(name = "product_id")
 	private Long productId;
 
+	@Column(name = "order_id")
+	private Long orderId;
+
 	@Builder
-	public Review(Long id, String reviewImg, Integer star, String content, Long memberId, Long productId) {
+	public Review(Long id, String reviewImg, Integer star, String content, Long memberId, Long productId,
+		Long orderId) {
 		this.id = id;
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;
 		this.memberId = memberId;
 		this.productId = productId;
+		this.orderId = orderId;
 	}
 
-	public Review updateReview(ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
-		this.reviewImg = reviewUpdateRequestDTO.getReviewImg();
-		this.star = reviewUpdateRequestDTO.getStar();
-		this.content = reviewUpdateRequestDTO.getContent();
+	public Review updateReview(ReviewUpdateDTO reviewUpdateDTO) {
+		this.reviewImg = reviewUpdateDTO.getReviewImg();
+		this.star = reviewUpdateDTO.getStar();
+		this.content = reviewUpdateDTO.getContent();
 		return this;
 	}
 

@@ -9,11 +9,12 @@ import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.member.domain.Member;
 import com.example.hotdealmoa.member.repository.MemberRepository;
+import com.example.hotdealmoa.order.repository.OrderRepository;
+import com.example.hotdealmoa.product.repository.ProductRepository;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
 import com.example.hotdealmoa.review.DTO.ReviewSearchCondition;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateDTO;
 import com.example.hotdealmoa.review.domain.Review;
 import com.example.hotdealmoa.review.mapper.ReviewCreateMapper;
 import com.example.hotdealmoa.review.mapper.ReviewUpdateMapper;
@@ -29,6 +30,8 @@ public class ReviewService {
 
 	private final ReviewRepository reviewRepository;
 	private final MemberRepository memberRepository;
+	private final OrderRepository orderRepository;
+	private final ProductRepository productRepository;
 	private final ReviewUpdateMapper reviewUpdateMapper;
 	private final ReviewCreateMapper reviewCreateMapper;
 
@@ -42,16 +45,22 @@ public class ReviewService {
 		Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
+		productRepository.findById(reviewCreateRequestDTO.getProductId())
+			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+
+		orderRepository.findById(reviewCreateRequestDTO.getOrderId())
+			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+
 		Review review = reviewCreateMapper.toEntity(member.getId(), reviewCreateRequestDTO);
 		return reviewRepository.save(review).getId() > 0;
 	}
 
 	@Transactional
-	public ReviewUpdateResponseDTO updateReview(Long id, ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+	public ReviewUpdateDTO updateReview(Long id, ReviewUpdateDTO reviewUpdateDTO) {
 		Review review = reviewRepository.findById(id)
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
-		review.updateReview(reviewUpdateRequestDTO);
+		review.updateReview(reviewUpdateDTO);
 		return reviewUpdateMapper.toDto(review);
 	}
 

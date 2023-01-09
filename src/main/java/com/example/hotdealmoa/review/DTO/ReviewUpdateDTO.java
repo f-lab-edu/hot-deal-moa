@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReviewUpdateRequestDTO {
+public class ReviewUpdateDTO {
 	private String reviewImg;
 
 	@NotNull
@@ -22,7 +22,7 @@ public class ReviewUpdateRequestDTO {
 	private String content;
 
 	@Builder
-	public ReviewUpdateRequestDTO(String reviewImg, Integer star, String content) {
+	public ReviewUpdateDTO(String reviewImg, Integer star, String content) {
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;

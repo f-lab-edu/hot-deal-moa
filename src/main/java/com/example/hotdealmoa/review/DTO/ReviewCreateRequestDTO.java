@@ -21,13 +21,19 @@ public class ReviewCreateRequestDTO {
 
 	@NotBlank
 	private String content;
+
+	@NotNull
 	private Long productId;
 
+	@NotNull
+	private Long orderId;
+
 	@Builder
-	public ReviewCreateRequestDTO(String reviewImg, Integer star, String content, Long productId) {
+	public ReviewCreateRequestDTO(String reviewImg, Integer star, String content, Long productId, Long orderId) {
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;
 		this.productId = productId;
+		this.orderId = orderId;
 	}
 }
