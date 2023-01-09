@@ -45,7 +45,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	private LoginService loginService;
 
 	@Test
-	@DisplayName("회원 가입 성공 테스트")
+	@DisplayName("회원 가입에 성공하다.")
 	void join_success() throws Exception {
 		JoinDTO joinDTO = JoinDTO.builder()
 			.email("test1234@naver.com")
@@ -75,7 +75,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("회원 가입 실패 테스트")
+	@DisplayName("회원 가입에 실패하다.")
 	void join_fail() throws Exception {
 		JoinDTO joinDTO = JoinDTO.builder()
 			.email("test1234@naver.com")
@@ -105,7 +105,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("사용 가능한 이메일")
+	@DisplayName("해당 이메일 사용이 가능하다.")
 	void email_notExists() throws Exception {
 
 		String email = "aaa@naver.com";
@@ -124,7 +124,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("이미 사용중 인 이메일")
+	@DisplayName("해당 이메일 사용이 불가능하다.")
 	void email_exists() throws Exception {
 
 		String email = "bbb@naver.com";
@@ -144,7 +144,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("로그인 성공")
+	@DisplayName("로그인에 성공하다.")
 	void login_success() throws Exception {
 		LoginDTO loginDTO = LoginDTO.builder()
 			.email("test1234@naver.com")
@@ -165,7 +165,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("로그인 실패")
+	@DisplayName("로그인에 실패하다.")
 	void login_fail() throws Exception {
 		LoginDTO loginDTO = LoginDTO.builder()
 			.email("test1234@naver.com")
@@ -188,7 +188,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("로그아웃")
+	@DisplayName("로그아웃을 하다.")
 	void logout() throws Exception {
 		doNothing().when(loginService).logout();
 		mockMvc.perform(get(BASIC_URL + "logout"))
@@ -208,7 +208,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("회원 상세 정보 가져오기")
+	@DisplayName("회원 상세 정보를 가져오기오다.")
 	void getProfile() throws Exception {
 		given(memberService.getProfile(any())).willReturn(getMemberDTO());
 
@@ -227,7 +227,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("회원 정보 수정")
+	@DisplayName("회원 정보를 수정하다.")
 	void update_profile() throws Exception {
 		UpdateMemberDTO updateMemberDTO = UpdateMemberDTO.builder()
 			.name("test123")
@@ -274,7 +274,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("패스워드 변경 성공")
+	@DisplayName("패스워드 변경에 성공하다.")
 	void change_password_success() throws Exception {
 		String email = "test1234@naver.com";
 
@@ -295,7 +295,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 	}
 
 	@Test
-	@DisplayName("패스워드 변경 실패")
+	@DisplayName("패스워드 변경에 실패하다.")
 	void change_password_fail() throws Exception {
 		doThrow(new CustomException(ErrorCode.PASSWORD_NOT_EQUAL))
 			.when(memberService).changePassword(any(), any());

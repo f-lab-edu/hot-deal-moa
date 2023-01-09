@@ -1,22 +1,16 @@
 package com.example.hotdealmoa.order.domain;
 
-import static jakarta.persistence.FetchType.*;
-
 import org.hibernate.annotations.ColumnDefault;
 
-import com.example.hotdealmoa.coupon.domain.Coupon;
 import com.example.hotdealmoa.global.common.BaseTimeEntity;
-import com.example.hotdealmoa.member.domain.Member;
-import com.example.hotdealmoa.product.domain.Product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,32 +42,39 @@ public class Order extends BaseTimeEntity {
 	@Column(name = "payment_price", nullable = false)
 	private Integer paymentPrice;
 
-	@Column(name = "order_status", nullable = false)
-	private String orderStatus;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "order_status")
+	private OrderStatus orderStatus;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "product_id")
-	private Product product;
+	@Column(name = "product_id")
+	private Long productId;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@Column(name = "member_id")
+	private Long memberId;
 
-	@OneToOne(fetch = LAZY)
-	@JoinColumn(name = "coupon_id")
-	private Coupon coupon;
+	@Column(name = "coupon_id")
+	private Long couponId;
 
 	@Builder
-	public Order(Long id, Integer productCount, String requestMessage, String requestAddress, Integer paymentPrice,
-		String orderStatus, Product product, Member member, Coupon coupon) {
+	public Order(Long id, Integer productCount, String requestMessage, String requestAddress,
+		Integer paymentPrice, OrderStatus orderStatus, Long productId, Long memberId, Long couponId) {
 		this.id = id;
 		this.productCount = productCount;
 		this.requestMessage = requestMessage;
 		this.requestAddress = requestAddress;
 		this.paymentPrice = paymentPrice;
 		this.orderStatus = orderStatus;
-		this.product = product;
-		this.member = member;
-		this.coupon = coupon;
+		this.productId = productId;
+		this.memberId = memberId;
+		this.couponId = couponId;
 	}
+
+	public void addPaymentPrice(Integer paymentPrice) {
+		this.paymentPrice = paymentPrice;
+	}
+
+	public void updateStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
 }
