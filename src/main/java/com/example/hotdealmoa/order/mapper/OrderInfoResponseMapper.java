@@ -16,6 +16,7 @@ public interface OrderInfoResponseMapper {
 	@Mapping(source = "member.id", target = "memberId")
 	@Mapping(source = "product.id", target = "productId")
 	@Mapping(source = "product.title", target = "productTitle")
+	@Mapping(source = "product.mainImg", target = "productMainImg")
 	@Mapping(target = "couponId", ignore = true)
 	@Mapping(target = "discountPrice", ignore = true)
 	OrderInfoResponseDTO toDto(Integer productCount, Member member, Product product);

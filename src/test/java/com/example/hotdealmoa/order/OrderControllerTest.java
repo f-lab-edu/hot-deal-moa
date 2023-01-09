@@ -57,6 +57,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 			.name("member1")
 			.email("aaa@naver.com")
 			.phoneNumber("010-1234-5678")
+			.productMainImg("/images/product1.jpg")
 			.address("seoul")
 			.productId(1L)
 			.productTitle("iphone")
@@ -88,6 +89,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 					fieldWithPath("data.address").type(JsonFieldType.STRING).description("구매자 주소"),
 					fieldWithPath("data.productId").type(JsonFieldType.NUMBER).description("상품 id"),
 					fieldWithPath("data.productTitle").type(JsonFieldType.STRING).description("상품 이름"),
+					fieldWithPath("data.productMainImg").type(JsonFieldType.STRING).description("상품 이미지"),
 					fieldWithPath("data.productCount").type(JsonFieldType.NUMBER).description("상품 구매 개수"),
 					fieldWithPath("data.totalPrice").type(JsonFieldType.NUMBER).description("총 상품 가격"),
 					fieldWithPath("data.deliveryFee").type(JsonFieldType.NUMBER).description("배송비"),
@@ -105,6 +107,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 			.id(1L)
 			.productTitle("product1")
 			.productCount(2)
+			.productMainImg("/images/product1.jpg")
 			.requestMessage("quick")
 			.orderStatus(OrderStatus.ORDERED)
 			.name("member1")
@@ -128,6 +131,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 						fieldWithPath("data.id").type(JsonFieldType.NUMBER).description("구매자 id"),
 						fieldWithPath("data.productTitle").type(JsonFieldType.STRING).description("상품 이름"),
 						fieldWithPath("data.productCount").type(JsonFieldType.NUMBER).description("상품 구매 개수"),
+						fieldWithPath("data.productMainImg").type(JsonFieldType.STRING).description("상품 이미지"),
 						fieldWithPath("data.requestMessage").type(JsonFieldType.STRING).description("주문 요청 메세지"),
 						fieldWithPath("data.orderStatus").type(JsonFieldType.STRING).description("주문 상태"),
 						fieldWithPath("data.name").type(JsonFieldType.STRING).description("구매자 이름"),
@@ -148,6 +152,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 			.builder()
 			.productId(1L)
 			.productName("product1")
+			.productMainImg("/images/product1.jpg")
 			.orderDate(LocalDateTime.of(2023, 1, 22, 9, 22, 0))
 			.productCount(2)
 			.orderStatus(OrderStatus.ORDERED)
@@ -172,6 +177,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 					List.of(
 						fieldWithPath("data.list[].productId").type(JsonFieldType.NUMBER).description("구매자 id"),
 						fieldWithPath("data.list[].productName").type(JsonFieldType.STRING).description("상품 이름"),
+						fieldWithPath("data.list[].productMainImg").type(JsonFieldType.STRING).description("상품 이미지"),
 						fieldWithPath("data.list[].productCount").type(JsonFieldType.NUMBER).description("상품 개수"),
 						fieldWithPath("data.list[].orderDate").type(JsonFieldType.STRING).description("주문 날짜"),
 						fieldWithPath("data.list[].orderStatus").type(JsonFieldType.STRING).description("주문 상태"),
