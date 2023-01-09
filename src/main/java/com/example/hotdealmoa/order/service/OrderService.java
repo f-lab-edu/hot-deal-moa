@@ -80,8 +80,6 @@ public class OrderService {
 		Product product = productRepository.findById(orderEntity.getProductId())
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
-		System.out.println("aa");
-
 		// 상품 개수 유효 체크
 		if (NumberUtils.compare(product.getStock(), orderEntity.getProductCount()) < 0) {
 			throw new CustomException(ErrorCode.ORDER_ERROR);
