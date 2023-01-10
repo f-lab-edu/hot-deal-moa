@@ -96,7 +96,6 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 			.reviewImg("/image/aa.jpg")
 			.content("aaa")
 			.star(3)
-			.productId(1L)
 			.orderId(1L)
 			.build();
 
@@ -111,7 +110,6 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 					fieldWithPath("reviewImg").type(JsonFieldType.STRING).description("리뷰 이미지"),
 					fieldWithPath("content").type(JsonFieldType.STRING).description("리뷰 내용"),
 					fieldWithPath("star").type(JsonFieldType.NUMBER).description("평점"),
-					fieldWithPath("productId").type(JsonFieldType.NUMBER).description("제품 ID"),
 					fieldWithPath("orderId").type(JsonFieldType.NUMBER).description("주문 ID")
 				), defaultResponseFields()));
 

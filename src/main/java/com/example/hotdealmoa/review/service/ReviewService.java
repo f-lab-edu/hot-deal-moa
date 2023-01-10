@@ -1,5 +1,7 @@
 package com.example.hotdealmoa.review.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +11,9 @@ import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.member.domain.Member;
 import com.example.hotdealmoa.member.repository.MemberRepository;
+import com.example.hotdealmoa.order.domain.Order;
 import com.example.hotdealmoa.order.repository.OrderRepository;
+import com.example.hotdealmoa.product.domain.Product;
 import com.example.hotdealmoa.product.repository.ProductRepository;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
@@ -42,33 +46,66 @@ public class ReviewService {
 
 	@Transactional
 	public boolean createReview(String email, ReviewCreateRequestDTO reviewCreateRequestDTO) {
+
+		reviewRepository.findByOrderId(reviewCreateRequestDTO.getOrderId()).ifPresent(review -> {
+			throw new CustomException(ErrorCode.DUPLICATION);
+		});
+
 		Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
-		productRepository.findById(reviewCreateRequestDTO.getProductId())
+		Order order = orderRepository.findById(reviewCreateRequestDTO.getOrderId())
 			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
 
-		orderRepository.findById(reviewCreateRequestDTO.getOrderId())
-			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+		Product product = getProductById(order.getProductId());
 
-		Review review = reviewCreateMapper.toEntity(member.getId(), reviewCreateRequestDTO);
-		return reviewRepository.save(review).getId() > 0;
+		Review review = reviewRepository
+			.save(reviewCreateMapper.toEntity(member.getId(), product.getId(), reviewCreateRequestDTO));
+
+		updateProductReviewAverage(product);
+
+		return review.getId() > 0;
 	}
 
 	@Transactional
 	public ReviewUpdateDTO updateReview(Long id, ReviewUpdateDTO reviewUpdateDTO) {
-		Review review = reviewRepository.findById(id)
-			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
-
+		Review review = getReviewById(id);
 		review.updateReview(reviewUpdateDTO);
+
+		Product product = getProductById(review.getProductId());
+		updateProductReviewAverage(product);
+
 		return reviewUpdateMapper.toDto(review);
 	}
 
 	@Transactional
 	public void deleteReview(Long id) {
-		Review review = reviewRepository.findById(id)
-			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
-
+		Review review = getReviewById(id);
 		reviewRepository.delete(review);
+
+		Product product = getProductById(review.getProductId());
+		updateProductReviewAverage(product);
+	}
+
+	private Review getReviewById(Long id) {
+		return reviewRepository.findById(id)
+			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+	}
+
+	private Product getProductById(Long id) {
+		return productRepository.findById(id)
+			.orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+	}
+
+	/**
+	 * 상품 리뷰 평점 컬럼 업데이트 처리
+	 */
+	private void updateProductReviewAverage(Product product) {
+		List<Review> allByProductId = reviewRepository.findAllByProductId(product.getId());
+
+		double starAverage = allByProductId.stream().map(Review::getStar)
+			.mapToInt(i -> i).average().orElse(0);
+
+		product.updateReviewAverage(starAverage);
 	}
 }

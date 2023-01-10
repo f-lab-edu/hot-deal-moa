@@ -2,7 +2,6 @@ package com.example.hotdealmoa.product.repository;
 
 import static com.example.hotdealmoa.category.domain.QCategory.*;
 import static com.example.hotdealmoa.product.domain.QProduct.*;
-import static com.example.hotdealmoa.review.domain.QReview.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import com.example.hotdealmoa.product.dto.ProductDetailDTO;
 import com.example.hotdealmoa.product.dto.ProductSearchCondition;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.MathExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -38,7 +36,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 				product.title,
 				product.mainImg,
 				product.stock,
-				MathExpressions.round(review.star.coalesce(0).avg(), 1),
+				product.starAverage,
 				product.id.count(),
 				product.totalPrice,
 				product.startAt,
@@ -46,7 +44,6 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 				category.name))
 			.from(product)
 			.leftJoin(category).on(category.id.eq(product.categoryId))
-			.leftJoin(review).on(review.productId.eq(product.id))
 			.groupBy(product.id)
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
@@ -59,7 +56,6 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 			.select(product.count())
 			.from(product)
 			.leftJoin(category).on(category.id.eq(product.categoryId))
-			.leftJoin(review).on(review.productId.eq(product.id))
 			.where(
 				containsCategory(productSearchCondition.getCategory()),
 				containsProductName(productSearchCondition.getProductName())
@@ -76,7 +72,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 				product.content,
 				product.mainImg,
 				product.detailImg,
-				MathExpressions.round(review.star.coalesce(0).avg(), 1),
+				product.starAverage,
 				product.id.count(),
 				product.stock,
 				product.totalPrice,
@@ -86,7 +82,6 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 				category.name))
 			.from(product)
 			.leftJoin(category).on(category.id.eq(product.categoryId))
-			.leftJoin(review).on(review.productId.eq(product.id))
 			.groupBy(product.id)
 			.where(product.id.eq(id))
 			.fetchFirst();

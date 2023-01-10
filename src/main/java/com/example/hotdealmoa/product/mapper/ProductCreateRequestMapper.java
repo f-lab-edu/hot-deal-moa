@@ -12,5 +12,6 @@ public interface ProductCreateRequestMapper {
 	ProductCreateRequestMapper INSTANCE = Mappers.getMapper(ProductCreateRequestMapper.class);
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "starAverage", ignore = true)
 	Product toEntity(ProductCreateRequestDTO productCreateRequestDTO);
 }

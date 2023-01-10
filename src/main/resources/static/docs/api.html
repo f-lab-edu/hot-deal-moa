@@ -1734,7 +1734,7 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">재고 개수</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].starAvg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].starAverage</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">리뷰 평균 평점</p></td>
 </tr>
@@ -1772,7 +1772,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 451
+Content-Length: 455
 
 {
   "status" : 200,
@@ -1782,7 +1782,7 @@ Content-Length: 451
       "title" : "bbb",
       "mainImg" : "/image/aaa.jpg",
       "stock" : 21,
-      "starAvg" : 2.5,
+      "starAverage" : 2.5,
       "reviewCount" : 2,
       "totalPrice" : 222,
       "startAt" : "2023-01-22T09:22:00",
@@ -2445,6 +2445,11 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">제품 명</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].orderCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">구매 개수</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -2454,7 +2459,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 323
+Content-Length: 347
 
 {
   "status" : 200,
@@ -2465,7 +2470,8 @@ Content-Length: 323
       "star" : 5,
       "content" : "aaa",
       "buyerName" : "ccc",
-      "productName" : "bbb"
+      "productName" : "bbb",
+      "orderCount" : 2
     } ],
     "totalPage" : 1,
     "pageSize" : 10,
@@ -2517,10 +2523,10 @@ Content-Length: 323
 <td class="tableblock halign-left valign-top"><p class="tableblock">평점</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>orderId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제품 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주문 ID</p></td>
 </tr>
 </tbody>
 </table>
@@ -2531,14 +2537,14 @@ Content-Length: 323
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/review HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 89
+Content-Length: 87
 Host: localhost:8080
 
 {
   "reviewImg" : "/image/aa.jpg",
   "star" : 3,
   "content" : "aaa",
-  "productId" : 1
+  "orderId" : 1
 }</code></pre>
 </div>
 </div>
@@ -3030,6 +3036,11 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.productMainImg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이미지</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.productCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 구매 개수</p></td>
@@ -3063,7 +3074,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 368
+Content-Length: 415
 
 {
   "status" : 200,
@@ -3076,6 +3087,7 @@ Content-Length: 368
     "productId" : 1,
     "productTitle" : "iphone",
     "productCount" : 2,
+    "productMainImg" : "/images/product1.jpg",
     "totalPrice" : 20000,
     "deliveryFee" : 5000,
     "couponId" : 1,
@@ -3162,6 +3174,11 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 구매 개수</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.productMainImg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이미지</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.requestMessage</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">주문 요청 메세지</p></td>
@@ -3220,7 +3237,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 414
+Content-Length: 461
 
 {
   "status" : 200,
@@ -3228,6 +3245,7 @@ Content-Length: 414
     "id" : 1,
     "productTitle" : "product1",
     "productCount" : 2,
+    "productMainImg" : "/images/product1.jpg",
     "requestMessage" : "quick",
     "orderStatus" : "ORDERED",
     "name" : "member1",
@@ -3293,6 +3311,11 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].productMainImg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 이미지</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].productCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품 개수</p></td>
@@ -3321,7 +3344,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 349
+Content-Length: 398
 
 {
   "status" : 200,
@@ -3329,6 +3352,7 @@ Content-Length: 349
     "list" : [ {
       "productId" : 1,
       "productName" : "product1",
+      "productMainImg" : "/images/product1.jpg",
       "orderDate" : "2023-01-22T09:22:00",
       "productCount" : 2,
       "orderStatus" : "ORDERED",
