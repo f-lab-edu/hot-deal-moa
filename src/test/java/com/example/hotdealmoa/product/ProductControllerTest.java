@@ -55,7 +55,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 			.title("bbb")
 			.mainImg("/image/aaa.jpg")
 			.stock(21)
-			.starAvg(2.5)
+			.starAverage(2.5)
 			.reviewCount(2L)
 			.totalPrice(222)
 			.startAt(LocalDateTime.of(2023, 1, 22, 9, 22, 0))
@@ -89,7 +89,7 @@ public class ProductControllerTest extends AbstractControllerTest {
 						fieldWithPath("data.list[].title").type(JsonFieldType.STRING).description("상품 이름"),
 						fieldWithPath("data.list[].mainImg").type(JsonFieldType.STRING).description("상품 메인 이미지"),
 						fieldWithPath("data.list[].stock").type(JsonFieldType.NUMBER).description("재고 개수"),
-						fieldWithPath("data.list[].starAvg").type(JsonFieldType.NUMBER).description("리뷰 평균 평점"),
+						fieldWithPath("data.list[].starAverage").type(JsonFieldType.NUMBER).description("리뷰 평균 평점"),
 						fieldWithPath("data.list[].reviewCount").type(JsonFieldType.NUMBER).description("리뷰 전체 개수"),
 						fieldWithPath("data.list[].totalPrice").type(JsonFieldType.NUMBER).description("상품 가격"),
 						fieldWithPath("data.list[].startAt").type(JsonFieldType.STRING).description("판매 시작 시간"),

@@ -26,8 +26,7 @@ import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.service.LoginService;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateDTO;
 import com.example.hotdealmoa.review.controller.ReviewController;
 import com.example.hotdealmoa.review.service.ReviewService;
 
@@ -53,6 +52,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 			.productName("bbb")
 			.content("aaa")
 			.star(5)
+			.orderCount(2)
 			.build();
 
 		reviewList.add(reviewDTO);
@@ -82,7 +82,8 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 						fieldWithPath("data.list[].star").type(JsonFieldType.NUMBER).description("별점"),
 						fieldWithPath("data.list[].content").type(JsonFieldType.STRING).description("리뷰 내용"),
 						fieldWithPath("data.list[].buyerName").type(JsonFieldType.STRING).description("구매자 이름"),
-						fieldWithPath("data.list[].productName").type(JsonFieldType.STRING).description("제품 명")
+						fieldWithPath("data.list[].productName").type(JsonFieldType.STRING).description("제품 명"),
+						fieldWithPath("data.list[].orderCount").type(JsonFieldType.NUMBER).description("구매 개수")
 					)
 				)));
 	}
@@ -95,7 +96,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 			.reviewImg("/image/aa.jpg")
 			.content("aaa")
 			.star(3)
-			.productId(1L)
+			.orderId(1L)
 			.build();
 
 		given(reviewService.createReview(any(), any())).willReturn(true);
@@ -109,7 +110,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 					fieldWithPath("reviewImg").type(JsonFieldType.STRING).description("리뷰 이미지"),
 					fieldWithPath("content").type(JsonFieldType.STRING).description("리뷰 내용"),
 					fieldWithPath("star").type(JsonFieldType.NUMBER).description("평점"),
-					fieldWithPath("productId").type(JsonFieldType.NUMBER).description("제품 ID")
+					fieldWithPath("orderId").type(JsonFieldType.NUMBER).description("주문 ID")
 				), defaultResponseFields()));
 
 	}
@@ -117,23 +118,17 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	@Test
 	@DisplayName("리뷰 정보를 수정하다.")
 	void updateReview() throws Exception {
-		ReviewUpdateRequestDTO reviewUpdateRequestDTO = ReviewUpdateRequestDTO.builder()
+		ReviewUpdateDTO reviewUpdateDTO = ReviewUpdateDTO.builder()
 			.reviewImg("/image/aa.jpg")
 			.content("aaa")
 			.star(3)
 			.build();
 
-		ReviewUpdateResponseDTO reviewUpdateResponseDTO = ReviewUpdateResponseDTO.builder()
-			.reviewImg("/image/aa.jpg")
-			.content("aaa")
-			.star(3)
-			.build();
-
-		given(reviewService.updateReview(any(), any())).willReturn(reviewUpdateResponseDTO);
+		given(reviewService.updateReview(any(), any())).willReturn(reviewUpdateDTO);
 
 		mockMvc.perform(put(BASIC_URL + "/{id}", ID)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(reviewUpdateRequestDTO)))
+				.content(objectMapper.writeValueAsString(reviewUpdateDTO)))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
 				pathParameters(

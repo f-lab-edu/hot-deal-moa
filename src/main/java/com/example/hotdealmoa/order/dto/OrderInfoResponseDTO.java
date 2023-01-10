@@ -19,6 +19,7 @@ public class OrderInfoResponseDTO {
 	private Long productId;
 	private String productTitle;
 	private Integer productCount;
+	private String productMainImg;
 	private Integer totalPrice;
 	private Integer deliveryFee;
 	private Long couponId;
@@ -26,8 +27,8 @@ public class OrderInfoResponseDTO {
 
 	@Builder
 	public OrderInfoResponseDTO(Long memberId, String name, String email, String phoneNumber, String address,
-		Long productId, String productTitle, Integer productCount, Integer totalPrice, Integer deliveryFee,
-		Long couponId, Integer discountPrice) {
+		Long productId, String productTitle, Integer productCount, String productMainImg, Integer totalPrice,
+		Integer deliveryFee, Long couponId, Integer discountPrice) {
 		this.memberId = memberId;
 		this.name = name;
 		this.email = email;
@@ -36,6 +37,7 @@ public class OrderInfoResponseDTO {
 		this.productId = productId;
 		this.productTitle = productTitle;
 		this.productCount = productCount;
+		this.productMainImg = productMainImg;
 		this.totalPrice = totalPrice;
 		this.deliveryFee = deliveryFee;
 		this.couponId = couponId;

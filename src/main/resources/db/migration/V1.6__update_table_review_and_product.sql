@@ -1,0 +1,5 @@
+ALTER TABLE review
+    ADD COLUMN order_id BIGINT;
+
+ALTER TABLE product
+    ADD COLUMN star_average FLOAT DEFAULT 0 NOT NULL

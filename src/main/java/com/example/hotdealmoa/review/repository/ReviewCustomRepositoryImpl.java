@@ -1,6 +1,7 @@
 package com.example.hotdealmoa.review.repository;
 
 import static com.example.hotdealmoa.member.domain.QMember.*;
+import static com.example.hotdealmoa.order.domain.QOrder.*;
 import static com.example.hotdealmoa.product.domain.QProduct.*;
 import static com.example.hotdealmoa.review.domain.QReview.*;
 
@@ -36,10 +37,12 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 				review.star,
 				review.content,
 				member.name,
-				product.title))
+				product.title,
+				order.productCount))
 			.from(review)
 			.innerJoin(member).on(member.id.eq(review.memberId))
 			.innerJoin(product).on(product.id.eq(review.productId))
+			.innerJoin(order).on(order.id.eq(review.orderId))
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
 			.where(
@@ -52,6 +55,7 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 			.from(review)
 			.innerJoin(member).on(member.id.eq(review.memberId))
 			.innerJoin(product).on(product.id.eq(review.productId))
+			.innerJoin(order).on(order.memberId.eq(member.id))
 			.where(
 				eqProductId(searchCondition.getProductId()),
 				eqBuyerName(searchCondition.getBuyerName())
