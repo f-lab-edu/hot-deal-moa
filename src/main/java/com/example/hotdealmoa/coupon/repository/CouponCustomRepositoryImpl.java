@@ -2,12 +2,14 @@ package com.example.hotdealmoa.coupon.repository;
 
 import static com.example.hotdealmoa.coupon.domain.QCoupon.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
+import com.example.hotdealmoa.coupon.domain.Coupon;
 import com.example.hotdealmoa.coupon.dto.CouponDTO;
 import com.example.hotdealmoa.coupon.dto.CouponSearchCondition;
 import com.example.hotdealmoa.global.common.response.PageResponse;
@@ -56,6 +58,27 @@ public class CouponCustomRepositoryImpl implements CouponCustomRepository {
 			);
 
 		return PageResponse.of(PageableExecutionUtils.getPage(list, pageable, count::fetchFirst));
+	}
+
+	@Override
+	public List<Coupon> getUsedOrExpiredCouponList() {
+		return queryFactory
+			.selectFrom(coupon)
+			.where(
+				coupon.expiredAt.before(LocalDateTime.now())
+					.or(coupon.isUsed.eq(true))
+					.and(coupon.isExpired.eq(false))
+			)
+			.fetch();
+	}
+
+	@Override
+	public long updateExpiredCoupon(List<Coupon> coupons) {
+		return queryFactory
+			.update(coupon)
+			.set(coupon.isExpired, true)
+			.where(coupon.in(coupons))
+			.execute();
 	}
 
 	private BooleanExpression eqMemberId(Long memberId) {
