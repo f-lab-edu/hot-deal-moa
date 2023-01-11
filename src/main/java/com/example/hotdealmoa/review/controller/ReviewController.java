@@ -23,8 +23,7 @@ import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.review.DTO.ReviewCreateRequestDTO;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
 import com.example.hotdealmoa.review.DTO.ReviewSearchCondition;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateRequestDTO;
-import com.example.hotdealmoa.review.DTO.ReviewUpdateResponseDTO;
+import com.example.hotdealmoa.review.DTO.ReviewUpdateDTO;
 import com.example.hotdealmoa.review.service.ReviewService;
 
 import jakarta.validation.Valid;
@@ -59,10 +58,9 @@ public class ReviewController {
 
 	@LoginCheck
 	@PutMapping("/{id}")
-	public SuccessResponse<ReviewUpdateResponseDTO> updateReview(@PathVariable Long id,
-		@Valid @RequestBody ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
-		ReviewUpdateResponseDTO responseDTO = reviewService.updateReview(id, reviewUpdateRequestDTO);
-		return success(responseDTO);
+	public SuccessResponse<ReviewUpdateDTO> updateReview(@PathVariable Long id,
+		@Valid @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
+		return success(reviewService.updateReview(id, reviewUpdateDTO));
 	}
 
 	@LoginCheck

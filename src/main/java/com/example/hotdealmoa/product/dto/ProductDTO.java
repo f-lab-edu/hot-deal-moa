@@ -14,7 +14,7 @@ public class ProductDTO {
 	private String title;
 	private String mainImg;
 	private Integer stock;
-	private Double starAvg;
+	private Double starAverage;
 	private Long reviewCount;
 	private Integer totalPrice;
 	private LocalDateTime startAt;
@@ -22,13 +22,13 @@ public class ProductDTO {
 	private String categoryName;
 
 	@Builder
-	public ProductDTO(Long id, String title, String mainImg, Integer stock, Double starAvg, Long reviewCount,
+	public ProductDTO(Long id, String title, String mainImg, Integer stock, Double starAverage, Long reviewCount,
 		Integer totalPrice, LocalDateTime startAt, LocalDateTime endAt, String categoryName) {
 		this.id = id;
 		this.title = title;
 		this.mainImg = mainImg;
 		this.stock = stock;
-		this.starAvg = starAvg;
+		this.starAverage = starAverage;
 		this.reviewCount = reviewCount;
 		this.totalPrice = totalPrice;
 		this.startAt = startAt;

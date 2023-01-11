@@ -12,5 +12,5 @@ public interface ReviewCreateMapper {
 	ReviewCreateMapper INSTANCE = Mappers.getMapper(ReviewCreateMapper.class);
 
 	@Mapping(target = "id", ignore = true)
-	Review toEntity(Long memberId, ReviewCreateRequestDTO reviewCreateRequestDTO);
+	Review toEntity(Long memberId, Long productId, ReviewCreateRequestDTO reviewCreateRequestDTO);
 }

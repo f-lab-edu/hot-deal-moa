@@ -14,6 +14,7 @@ public class OrderDetailDTO {
 	private Long id;
 	private String productTitle;
 	private Integer productCount;
+	private String productMainImg;
 	private String requestMessage;
 	private OrderStatus orderStatus;
 	private String name;
@@ -26,12 +27,13 @@ public class OrderDetailDTO {
 	private Integer paymentPrice;
 
 	@Builder
-	public OrderDetailDTO(Long id, String productTitle, Integer productCount, String requestMessage,
-		OrderStatus orderStatus, String name, String email, String phoneNumber, String address, Integer totalPrice,
-		Integer deliveryFee, Integer discountPrice, Integer paymentPrice) {
+	public OrderDetailDTO(Long id, String productTitle, Integer productCount, String productMainImg,
+		String requestMessage, OrderStatus orderStatus, String name, String email, String phoneNumber,
+		String address, Integer totalPrice, Integer deliveryFee, Integer discountPrice, Integer paymentPrice) {
 		this.id = id;
 		this.productTitle = productTitle;
 		this.productCount = productCount;
+		this.productMainImg = productMainImg;
 		this.requestMessage = requestMessage;
 		this.orderStatus = orderStatus;
 		this.name = name;

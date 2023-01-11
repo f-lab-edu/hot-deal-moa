@@ -14,14 +14,17 @@ public class ReviewDTO {
 	private String content;
 	private String buyerName;
 	private String productName;
+	private Integer orderCount;
 
 	@Builder
-	public ReviewDTO(Long id, String reviewImg, Integer star, String content, String buyerName, String productName) {
+	public ReviewDTO(Long id, String reviewImg, Integer star, String content, String buyerName, String productName,
+		Integer orderCount) {
 		this.id = id;
 		this.reviewImg = reviewImg;
 		this.star = star;
 		this.content = content;
 		this.buyerName = buyerName;
 		this.productName = productName;
+		this.orderCount = orderCount;
 	}
 }

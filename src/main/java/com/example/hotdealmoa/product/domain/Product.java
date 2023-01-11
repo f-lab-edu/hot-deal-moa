@@ -46,6 +46,10 @@ public class Product extends BaseTimeEntity {
 	private Integer stock;
 
 	@ColumnDefault("0")
+	@Column(name = "star_average", nullable = false)
+	private Double starAverage;
+
+	@ColumnDefault("0")
 	@Column(name = "total_price", nullable = false)
 	private Integer totalPrice;
 
@@ -68,7 +72,7 @@ public class Product extends BaseTimeEntity {
 	@Builder
 	public Product(Long id, String title, String content, String mainImg, String detailImg, Integer stock,
 		Integer totalPrice, Integer deliveryFee, LocalDateTime startAt, LocalDateTime endAt, Long categoryId,
-		Long sellerId) {
+		Long sellerId, Double starAverage) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -81,6 +85,7 @@ public class Product extends BaseTimeEntity {
 		this.endAt = endAt;
 		this.categoryId = categoryId;
 		this.sellerId = sellerId;
+		this.starAverage = starAverage;
 	}
 
 	public Product updateProduct(ProductUpdateDTO productUpdateRequestDTO) {
@@ -98,6 +103,10 @@ public class Product extends BaseTimeEntity {
 
 	public void updateStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public void updateReviewAverage(Double starAverage) {
+		this.starAverage = starAverage;
 	}
 
 }
