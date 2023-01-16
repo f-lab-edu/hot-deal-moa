@@ -17,12 +17,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.config.AbstractControllerTest;
 import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.service.LoginService;
@@ -145,7 +144,7 @@ public class OrderControllerTest extends AbstractControllerTest {
 					))));
 	}
 
-	private PageResponse<OrderListDTO> createOrderListDTOPage() {
+	private SliceResponse<OrderListDTO> createOrderListDTOPage() {
 		List<OrderListDTO> orderList = new ArrayList<>();
 
 		OrderListDTO orderListDTO = OrderListDTO
@@ -160,20 +159,23 @@ public class OrderControllerTest extends AbstractControllerTest {
 			.build();
 
 		orderList.add(orderListDTO);
-		return PageResponse.of(new PageImpl<>(orderList, PageRequest.of(0, 10), 1L));
+
+		return SliceResponse.of(orderList, PageRequest.of(0, 20));
 	}
 
 	@Test
 	@DisplayName("주문 리스트를 가져오다.")
 	void getOrderList() throws Exception {
-		PageResponse<OrderListDTO> pageList = createOrderListDTOPage();
+		SliceResponse<OrderListDTO> pageList = createOrderListDTOPage();
 
-		given(orderService.getOrderList(any(), any())).willReturn(pageList);
+		given(orderService.getOrderList(any(), any(), any())).willReturn(pageList);
 
-		mockMvc.perform(get(BASIC_URL))
+		mockMvc.perform(get(BASIC_URL)
+				.param("lastOrderId", String.valueOf(1L)))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
-				customPageResponseFields(
+				queryParameters(parameterWithName("lastOrderId").description("마지막 주문 id")),
+				customSliceResponseFields(
 					List.of(
 						fieldWithPath("data.list[].productId").type(JsonFieldType.NUMBER).description("구매자 id"),
 						fieldWithPath("data.list[].productName").type(JsonFieldType.STRING).description("상품 이름"),

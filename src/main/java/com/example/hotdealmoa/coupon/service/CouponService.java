@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.hotdealmoa.coupon.dto.CouponDTO;
 import com.example.hotdealmoa.coupon.dto.CouponSearchCondition;
 import com.example.hotdealmoa.coupon.repository.CouponRepository;
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ public class CouponService {
 	private final CouponRepository couponRepository;
 
 	@Transactional(readOnly = true)
-	public PageResponse<CouponDTO> getCouponList(final CouponSearchCondition couponSearchCondition,
+	public SliceResponse<CouponDTO> getCouponList(final CouponSearchCondition couponSearchCondition,
 		final Pageable pageable) {
 		return couponRepository.getCouponList(couponSearchCondition, pageable);
 	}

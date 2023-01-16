@@ -6,16 +6,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 import com.example.hotdealmoa.coupon.domain.Coupon;
 import com.example.hotdealmoa.coupon.dto.CouponDTO;
 import com.example.hotdealmoa.coupon.dto.CouponSearchCondition;
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +25,7 @@ public class CouponCustomRepositoryImpl implements CouponCustomRepository {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public PageResponse<CouponDTO> getCouponList(CouponSearchCondition couponSearchCondition,
+	public SliceResponse<CouponDTO> getCouponList(CouponSearchCondition couponSearchCondition,
 		Pageable pageable) {
 
 		List<CouponDTO> list = queryFactory.select(Projections.constructor(CouponDTO.class,
@@ -38,26 +36,17 @@ public class CouponCustomRepositoryImpl implements CouponCustomRepository {
 				coupon.isExpired,
 				coupon.expiredAt
 			)).from(coupon)
-			.offset(pageable.getOffset())
-			.limit(pageable.getPageSize())
+			.limit(pageable.getPageSize() + 1)
 			.where(
 				eqMemberId(couponSearchCondition.getMemberId()),
 				eqIsUsed(couponSearchCondition.getIsUsed()),
-				eqIsExpired(couponSearchCondition.getIsExpired())
+				eqIsExpired(couponSearchCondition.getIsExpired()),
+				ltCouponId(couponSearchCondition.getLastCouponId())
 			)
+			.orderBy(coupon.createdAt.desc())
 			.fetch();
 
-		JPAQuery<Long> count = queryFactory.select(coupon.count())
-			.from(coupon)
-			.offset(pageable.getOffset())
-			.limit(pageable.getPageSize())
-			.where(
-				eqMemberId(couponSearchCondition.getMemberId()),
-				eqIsUsed(couponSearchCondition.getIsUsed()),
-				eqIsExpired(couponSearchCondition.getIsExpired())
-			);
-
-		return PageResponse.of(PageableExecutionUtils.getPage(list, pageable, count::fetchFirst));
+		return SliceResponse.of(list, pageable);
 	}
 
 	@Override
@@ -91,6 +80,10 @@ public class CouponCustomRepositoryImpl implements CouponCustomRepository {
 
 	private BooleanExpression eqIsExpired(Boolean isExpired) {
 		return isExpired != null ? coupon.isExpired.eq(isExpired) : null;
+	}
+
+	private BooleanExpression ltCouponId(Long id) {
+		return id == null ? null : coupon.id.lt(id);
 	}
 
 }

@@ -9,15 +9,13 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.review.DTO.ReviewDTO;
 import com.example.hotdealmoa.review.DTO.ReviewSearchCondition;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +27,7 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public PageResponse<ReviewDTO> getReviewListById(final ReviewSearchCondition searchCondition,
+	public SliceResponse<ReviewDTO> getReviewListById(final ReviewSearchCondition searchCondition,
 		final Pageable pageable) {
 		List<ReviewDTO> list = queryFactory.select(Projections.constructor(ReviewDTO.class,
 				review.id,
@@ -43,25 +41,15 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 			.innerJoin(member).on(member.id.eq(review.memberId))
 			.innerJoin(product).on(product.id.eq(review.productId))
 			.innerJoin(order).on(order.id.eq(review.orderId))
-			.offset(pageable.getOffset())
-			.limit(pageable.getPageSize())
+			.limit(pageable.getPageSize() + 1)
 			.where(
 				eqProductId(searchCondition.getProductId()),
-				eqBuyerName(searchCondition.getBuyerName()))
+				eqBuyerName(searchCondition.getBuyerName()),
+				ltReviewId(searchCondition.getLastReviewId()))
+			.orderBy(review.id.desc())
 			.fetch();
 
-		JPAQuery<Long> count = queryFactory
-			.select(review.count())
-			.from(review)
-			.innerJoin(member).on(member.id.eq(review.memberId))
-			.innerJoin(product).on(product.id.eq(review.productId))
-			.innerJoin(order).on(order.memberId.eq(member.id))
-			.where(
-				eqProductId(searchCondition.getProductId()),
-				eqBuyerName(searchCondition.getBuyerName())
-			);
-
-		return PageResponse.of(PageableExecutionUtils.getPage(list, pageable, count::fetchFirst));
+		return SliceResponse.of(list, pageable);
 	}
 
 	private BooleanExpression eqProductId(Long productId) {
@@ -71,4 +59,9 @@ public class ReviewCustomRepositoryImpl implements ReviewCustomRepository {
 	private BooleanExpression eqBuyerName(String buyerName) {
 		return StringUtils.isEmpty(buyerName) ? null : member.name.eq(buyerName);
 	}
+
+	private BooleanExpression ltReviewId(Long id) {
+		return id == null ? null : review.id.lt(id);
+	}
+
 }

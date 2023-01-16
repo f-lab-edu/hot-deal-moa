@@ -87,4 +87,14 @@ public abstract class AbstractControllerTest {
 		list.add(fieldWithPath("data.pageNumber").ignored());
 		return responseFields(list);
 	}
+
+	protected ResponseFieldsSnippet customSliceResponseFields(List<FieldDescriptor> fieldDescriptors) {
+		List<FieldDescriptor> list = getResponseFields();
+		list.addAll(fieldDescriptors);
+		list.add(fieldWithPath("data.size").type(JsonFieldType.NUMBER).description("json 데이터 개수"));
+		list.add(fieldWithPath("data.totalElements").type(JsonFieldType.NUMBER).description("전체 데이터 개수"));
+		list.add(fieldWithPath("data.last").type(JsonFieldType.BOOLEAN).description("마지막 데이터 여부"));
+		return responseFields(list);
+	}
+
 }

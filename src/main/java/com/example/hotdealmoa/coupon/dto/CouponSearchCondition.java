@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 public class CouponSearchCondition {
 
 	private Long memberId;
+	private Long lastCouponId;
 	private Boolean isUsed;
 
 	private Boolean isExpired;
 
 	@Builder
-	public CouponSearchCondition(Long memberId, Boolean isUsed, Boolean isExpired) {
+	public CouponSearchCondition(Long memberId, Long lastCouponId, Boolean isUsed, Boolean isExpired) {
 		this.memberId = memberId;
+		this.lastCouponId = lastCouponId;
 		this.isUsed = isUsed;
 		this.isExpired = isExpired;
 	}

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotdealmoa.global.common.annotation.CurrentUser;
 import com.example.hotdealmoa.global.common.annotation.LoginCheck;
-import com.example.hotdealmoa.global.common.response.PageResponse;
 import com.example.hotdealmoa.global.common.response.ResponseEnum;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.common.response.SuccessResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
@@ -39,9 +39,9 @@ public class ReviewController {
 	private final ReviewService reviewService;
 
 	@GetMapping
-	public SuccessResponse<PageResponse<ReviewDTO>> getReviewList(
+	public SuccessResponse<SliceResponse<ReviewDTO>> getReviewList(
 		ReviewSearchCondition reviewSearchCondition, Pageable pageable) {
-		PageResponse<ReviewDTO> reviewList = reviewService.getReviewList(reviewSearchCondition, pageable);
+		SliceResponse<ReviewDTO> reviewList = reviewService.getReviewList(reviewSearchCondition, pageable);
 		return success(reviewList);
 	}
 

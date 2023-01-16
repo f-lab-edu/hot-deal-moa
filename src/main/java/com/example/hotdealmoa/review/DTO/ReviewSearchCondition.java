@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 public class ReviewSearchCondition {
 	private Long productId;
 	private String buyerName;
+	private Long lastReviewId;
 
 	@Builder
-	public ReviewSearchCondition(Long productId, String buyerName) {
+	public ReviewSearchCondition(Long productId, String buyerName, Long lastReviewId) {
 		this.productId = productId;
 		this.buyerName = buyerName;
+		this.lastReviewId = lastReviewId;
 	}
 }
