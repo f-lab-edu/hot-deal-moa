@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotdealmoa.global.common.annotation.CurrentUser;
 import com.example.hotdealmoa.global.common.annotation.LoginCheck;
-import com.example.hotdealmoa.global.common.response.PageResponse;
 import com.example.hotdealmoa.global.common.response.ResponseEnum;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.common.response.SuccessResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
@@ -57,8 +57,9 @@ public class OrderController {
 
 	@LoginCheck
 	@GetMapping
-	public SuccessResponse<PageResponse<OrderListDTO>> getOrderList(@CurrentUser String email, Pageable pageable) {
-		PageResponse<OrderListDTO> list = orderService.getOrderList(email, pageable);
+	public SuccessResponse<SliceResponse<OrderListDTO>> getOrderList(@CurrentUser String email,
+		Long lastOrderId, Pageable pageable) {
+		SliceResponse<OrderListDTO> list = orderService.getOrderList(email, lastOrderId, pageable);
 		return success(list);
 	}
 

@@ -111,7 +111,7 @@ operation::order-controller-test/get-order-detail-info[snippets='path-parameters
 
 === 주문 리스트
 
-operation::order-controller-test/get-order-list[snippets='http-request,response-fields,http-response']
+operation::order-controller-test/get-order-list[snippets='query-parameters,http-request,response-fields,http-response']
 
 === 주문 진행 성공
 

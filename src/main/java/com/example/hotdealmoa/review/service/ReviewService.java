@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.member.domain.Member;
@@ -40,7 +40,7 @@ public class ReviewService {
 	private final ReviewCreateMapper reviewCreateMapper;
 
 	@Transactional(readOnly = true)
-	public PageResponse<ReviewDTO> getReviewList(ReviewSearchCondition reviewSearchCondition, Pageable pageable) {
+	public SliceResponse<ReviewDTO> getReviewList(ReviewSearchCondition reviewSearchCondition, Pageable pageable) {
 		return reviewRepository.getReviewListById(reviewSearchCondition, pageable);
 	}
 

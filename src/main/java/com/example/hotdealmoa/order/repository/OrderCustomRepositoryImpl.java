@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.order.dto.OrderDetailDTO;
 import com.example.hotdealmoa.order.dto.OrderListDTO;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +34,7 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository {
 				constantAs(id, order.id),
 				product.title,
 				order.productCount,
+				product.mainImg,
 				order.requestMessage,
 				order.orderStatus,
 				member.name,
@@ -57,32 +57,31 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository {
 	}
 
 	@Override
-	public PageResponse<OrderListDTO> getOrderList(String email, Pageable pageable) {
-		List<OrderListDTO> list = queryFactory.select(Projections.constructor(OrderListDTO.class,
+	public SliceResponse<OrderListDTO> getOrderList(String email, Long lastOrderId, Pageable pageable) {
+		List<OrderListDTO> results = queryFactory.select(Projections.constructor(OrderListDTO.class,
 				product.id,
 				product.title,
+				product.detailImg,
 				order.createdAt,
 				order.productCount,
 				order.orderStatus,
 				order.id
 			))
 			.from(order)
-			.leftJoin(member).on(order.memberId.eq(member.id))
-			.leftJoin(product).on(order.productId.eq(product.id))
-			.offset(pageable.getOffset())
-			.limit(pageable.getPageSize())
-			.where(member.email.eq(email))
+			.innerJoin(member).on(order.memberId.eq(member.id))
+			.innerJoin(product).on(order.productId.eq(product.id))
+			.limit(pageable.getPageSize() + 1)
+			.where(
+				ltOrderId(lastOrderId),
+				member.email.eq(email))
 			.orderBy(order.createdAt.desc())
 			.fetch();
 
-		JPAQuery<Long> count = queryFactory
-			.select(order.count())
-			.from(order)
-			.leftJoin(member).on(order.memberId.eq(member.id))
-			.leftJoin(product).on(order.productId.eq(product.id))
-			.where();
+		return SliceResponse.of(results, pageable);
+	}
 
-		return PageResponse.of(PageableExecutionUtils.getPage(list, pageable, count::fetchFirst));
+	private BooleanExpression ltOrderId(Long id) {
+		return id == null ? null : order.id.lt(id);
 	}
 
 }

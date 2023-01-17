@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hotdealmoa.coupon.domain.Coupon;
 import com.example.hotdealmoa.coupon.repository.CouponRepository;
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.exception.CustomException;
 import com.example.hotdealmoa.global.exception.ErrorCode;
 import com.example.hotdealmoa.member.domain.Member;
@@ -69,8 +69,9 @@ public class OrderService {
 	}
 
 	@Transactional(readOnly = true)
-	public PageResponse<OrderListDTO> getOrderList(final String email, final Pageable pageable) {
-		return orderRepository.getOrderList(email, pageable);
+	public SliceResponse<OrderListDTO> getOrderList(final String email, final Long lastOrderId,
+		final Pageable pageable) {
+		return orderRepository.getOrderList(email, lastOrderId, pageable);
 	}
 
 	@Transactional

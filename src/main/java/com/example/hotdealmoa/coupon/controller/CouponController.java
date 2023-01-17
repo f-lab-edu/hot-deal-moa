@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hotdealmoa.coupon.dto.CouponDTO;
 import com.example.hotdealmoa.coupon.dto.CouponSearchCondition;
 import com.example.hotdealmoa.coupon.service.CouponService;
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.common.response.SuccessResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class CouponController {
 	private final CouponService couponService;
 
 	@GetMapping
-	public SuccessResponse<PageResponse<CouponDTO>> getCouponList(CouponSearchCondition couponSearchCondition,
+	public SuccessResponse<SliceResponse<CouponDTO>> getCouponList(CouponSearchCondition couponSearchCondition,
 		Pageable pageable) {
-		PageResponse<CouponDTO> couponList = couponService.getCouponList(couponSearchCondition, pageable);
+		SliceResponse<CouponDTO> couponList = couponService.getCouponList(couponSearchCondition, pageable);
 		return success(couponList);
 	}
 }

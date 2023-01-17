@@ -15,12 +15,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.config.AbstractControllerTest;
 import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.service.LoginService;
@@ -43,7 +42,7 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 	@MockBean
 	private LoginService loginService;
 
-	private PageResponse<ReviewDTO> createReviewDTOPage() {
+	private SliceResponse<ReviewDTO> createReviewDTOPage() {
 		List<ReviewDTO> reviewList = new ArrayList<>();
 		ReviewDTO reviewDTO = ReviewDTO.builder()
 			.id(1L)
@@ -56,26 +55,28 @@ public class ReviewTestControllerTest extends AbstractControllerTest {
 			.build();
 
 		reviewList.add(reviewDTO);
-		return PageResponse.of(new PageImpl<>(reviewList, PageRequest.of(0, 10), 1L));
+		return SliceResponse.of(reviewList, PageRequest.of(0, 10));
 	}
 
 	@Test
 	@DisplayName("리뷰를 조회하다.")
 	void getReviewList() throws Exception {
-		PageResponse<ReviewDTO> pageList = createReviewDTOPage();
+		SliceResponse<ReviewDTO> pageList = createReviewDTOPage();
 
 		given(reviewService.getReviewList(any(), any())).willReturn(pageList);
 
 		mockMvc.perform(get(BASIC_URL)
 				.queryParam("productId", String.valueOf(1L))
-				.queryParam("buyerName", "ccc"))
+				.queryParam("buyerName", "ccc")
+				.queryParam("lastReviewId", String.valueOf(1L)))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
 				queryParameters(
 					parameterWithName("productId").description("제품 ID"),
-					parameterWithName("buyerName").description("구매자 이름")
+					parameterWithName("buyerName").description("구매자 이름"),
+					parameterWithName("lastReviewId").description("마지막 리뷰 id")
 				),
-				customPageResponseFields(
+				customSliceResponseFields(
 					List.of(
 						fieldWithPath("data.list[].id").type(JsonFieldType.NUMBER).description("아이디"),
 						fieldWithPath("data.list[].reviewImg").type(JsonFieldType.STRING).description("리뷰이미지"),

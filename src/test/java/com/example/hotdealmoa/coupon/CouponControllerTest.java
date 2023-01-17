@@ -17,14 +17,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import com.example.hotdealmoa.coupon.controller.CouponController;
 import com.example.hotdealmoa.coupon.dto.CouponDTO;
 import com.example.hotdealmoa.coupon.service.CouponService;
-import com.example.hotdealmoa.global.common.response.PageResponse;
+import com.example.hotdealmoa.global.common.response.SliceResponse;
 import com.example.hotdealmoa.global.config.AbstractControllerTest;
 import com.example.hotdealmoa.global.util.MessageUtils;
 import com.example.hotdealmoa.member.service.LoginService;
@@ -42,7 +41,7 @@ public class CouponControllerTest extends AbstractControllerTest {
 	@MockBean
 	private CouponService couponService;
 
-	private PageResponse<CouponDTO> createCouponDTOPage() {
+	private SliceResponse<CouponDTO> createCouponDTOPage() {
 		List<CouponDTO> couponList = new ArrayList<>();
 
 		CouponDTO couponDTO = CouponDTO.builder()
@@ -55,28 +54,30 @@ public class CouponControllerTest extends AbstractControllerTest {
 			.build();
 
 		couponList.add(couponDTO);
-		return PageResponse.of(new PageImpl<>(couponList, PageRequest.of(0, 10), 1L));
+		return SliceResponse.of(couponList, PageRequest.of(0, 20));
 	}
 
 	@Test
 	@DisplayName("쿠폰을 조회하다.")
 	void getCouponList() throws Exception {
-		PageResponse<CouponDTO> pageList = createCouponDTOPage();
+		SliceResponse<CouponDTO> pageList = createCouponDTOPage();
 
 		given(couponService.getCouponList(any(), any())).willReturn(pageList);
 
 		mockMvc.perform(get(BASIC_URL)
 				.queryParam("memberId", String.valueOf(ID))
 				.queryParam("isUsed", "false")
-				.queryParam("isExpired", "false"))
+				.queryParam("isExpired", "false")
+				.queryParam("lastCouponId", String.valueOf(ID)))
 			.andExpect(status().isOk())
 			.andDo(restDocs.document(
 				queryParameters(
 					parameterWithName("memberId").description("회원 id값"),
 					parameterWithName("isUsed").description("쿠폰 사용 여부"),
-					parameterWithName("isExpired").description("쿠폰 만료 여부")
+					parameterWithName("isExpired").description("쿠폰 만료 여부"),
+					parameterWithName("lastCouponId").description("마지막 쿠폰 ID")
 				),
-				customPageResponseFields(
+				customSliceResponseFields(
 					List.of(
 						fieldWithPath("data.list[].id").type(JsonFieldType.NUMBER).description("아이디"),
 						fieldWithPath("data.list[].title").type(JsonFieldType.STRING).description("쿠폰 이름"),
