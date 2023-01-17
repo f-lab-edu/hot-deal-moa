@@ -54,10 +54,10 @@ spring:
     enabled: true
     baseline-on-migrate: true
   datasource:
-    url: ENC(RK/a+8MvwFBRYzrQgKSyB91Qtt47ehbJ483+7208anoc7KWGStIpcBznp80z29Kx52rdhOWMnq0PPw0EvRhR1Vp8Qp5OBwPRYEXbcDA3KxXmFEww5JvdUqBxH8oyC7Zr)
+    url: ENC(gOmAwTYpg3dU8af2vBbSS7hWd1Sh3kU7UQRtC7eCV2u4YuG6N6tGr2vkKAgo3Wg+cjbNCDmLW9u7629xz/uwq/3jUcXAr9sfqKkXr2TFIgIR4JF1Naxdr7lsyfeS9r/V)
     username: ENC(1Oyv5OFKC8XKEK8usLmfHQ==)
-    password: ENC(jSslXA5VwV5JSDGwwOh9QNd5bQcdweKy)
+    password: ENC(AKzU/04JNA3zOyx5zhdWEo/YI/JNVt5ZZGrc02XBtAU=)
   data:
     redis:
-      host: ENC(c/qd8IdD2Jh8l9mNujKe+jEPEfG41OBd)
+      host: ENC(JJHIkdDgJ//eH3+hvJmU1l1lTXs94Ujx)
       port: 6379
