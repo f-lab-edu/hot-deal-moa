@@ -13,6 +13,11 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 
 --- # dev
 spring:

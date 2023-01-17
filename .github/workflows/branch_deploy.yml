@@ -38,10 +38,20 @@ jobs:
           source: "./hot-deal-moa.jar, ./deploy.sh"
           target: "/hotdealmoa"
 
-      - name: 스크립트 실행
+      - name: 첫번째 서버 스크립트 실행
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.NCP_SERVERS }}
+          host: ${{ secrets.NCP_SERVER1 }}
+          username: ${{ secrets.NCP_SERVER_USER }}
+          password: ${{ secrets.NCP_SERVER_PASSWORD }}
+          port: ${{ secrets.NCP_SERVERS_PORT }}
+          script_stop: true
+          script: chmod +x /hotdealmoa/deploy.sh && sh /hotdealmoa/deploy.sh
+
+      - name: 두번째 서버 스크립트 실행
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.NCP_SERVER2 }}
           username: ${{ secrets.NCP_SERVER_USER }}
           password: ${{ secrets.NCP_SERVER_PASSWORD }}
           port: ${{ secrets.NCP_SERVERS_PORT }}
