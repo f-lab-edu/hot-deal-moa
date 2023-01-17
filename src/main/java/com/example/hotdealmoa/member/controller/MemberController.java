@@ -43,7 +43,7 @@ public class MemberController {
 	@GetMapping("/email-exists")
 	public SuccessResponse<Void> isExistsEmail(@Email @RequestParam("email") String email) {
 		if (memberService.isExistsEmail(email)) {
-			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
+			throw new CustomException(ErrorCode.DUPLICATION);
 		}
 		return success(ResponseEnum.NOT_USED_EMAIL);
 	}

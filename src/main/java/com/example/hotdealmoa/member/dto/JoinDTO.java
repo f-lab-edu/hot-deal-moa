@@ -34,7 +34,7 @@ public class JoinDTO {
 	@Regex(RegexEnum.PHONE_NUMBER)
 	private String phoneNumber;
 
-	@EnumValid(message = "VALID_MEMBER.USER_ROLE")
+	@EnumValid(message = "VALID.USER_ROLE")
 	private UserRole userRole = UserRole.ROLE_USER;
 	@NotBlank
 	@Length(min = 1, max = 30)

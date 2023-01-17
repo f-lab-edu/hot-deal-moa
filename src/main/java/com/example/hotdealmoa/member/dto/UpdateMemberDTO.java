@@ -33,7 +33,7 @@ public class UpdateMemberDTO {
 	@Length(min = 1, max = 30)
 	private String address;
 
-	@EnumValid(message = "VALID_MEMBER.USER_ROLE")
+	@EnumValid(message = "VALID.USER_ROLE")
 	private UserRole userRole = UserRole.ROLE_USER;
 
 	@Builder

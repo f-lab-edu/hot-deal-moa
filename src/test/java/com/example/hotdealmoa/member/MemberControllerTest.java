@@ -129,7 +129,7 @@ public class MemberControllerTest extends AbstractControllerTest {
 
 		String email = "bbb@naver.com";
 
-		doThrow(new CustomException(ErrorCode.DUPLICATION_EMAIL)).when(memberService)
+		doThrow(new CustomException(ErrorCode.DUPLICATION)).when(memberService)
 			.isExistsEmail(email);
 
 		mockMvc.perform(get(BASIC_URL + "email-exists")
