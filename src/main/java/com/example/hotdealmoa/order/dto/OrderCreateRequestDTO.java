@@ -31,7 +31,7 @@ public class OrderCreateRequestDTO {
 	@NotNull
 	private Integer productCount;
 
-	@EnumValid(message = "VALID_ORDER.STATUS")
+	@EnumValid(message = "VALID.ORDERED_STATUS")
 	private OrderStatus orderStatus = OrderStatus.ORDERED;
 
 	@NotNull

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderStatusDTO {
 
-	@EnumValid(message = "VALID_ORDER.STATUS")
+	@EnumValid(message = "VALID.ORDERED_STATUS")
 	OrderStatus orderStatus;
 
 	@Builder

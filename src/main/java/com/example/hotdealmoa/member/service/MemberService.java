@@ -37,7 +37,7 @@ public class MemberService {
 	@Transactional
 	public boolean join(JoinDTO joinDTO) {
 		if (isExistsEmail(joinDTO.getEmail())) {
-			throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
+			throw new CustomException(ErrorCode.DUPLICATION);
 		}
 
 		Member member = joinMapper.toEntity(joinDTO);

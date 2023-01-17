@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum RegexEnum {
 
-	PHONE_NUMBER("\\d{3}-\\d{4}-\\d{4}", "VALID_MEMBER.PHONE_NUMBER"),
+	PHONE_NUMBER("\\d{3}-\\d{4}-\\d{4}", "VALID.PHONE_NUMBER"),
 	PASSWORD("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,15}$",
-		"VALID_MEMBER.PASSWORD"),
+		"VALID.PASSWORD"),
 	DUMMY("", "");
 
 	private final String regex;
