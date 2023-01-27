@@ -67,4 +67,4 @@ spring:
       host: ENC(JJHIkdDgJ//eH3+hvJmU1l1lTXs94Ujx)
       port: 6379
 logging:
-  config: classpath:logback-prod.xml
+  config: classpath:log4j2-prod.yml
